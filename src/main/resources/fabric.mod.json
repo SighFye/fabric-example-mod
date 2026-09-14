@@ -3,22 +3,25 @@
 	"id": "belandsigh",
 	"version": "${version}",
 	"name": "BelAndSigh",
-	"description": "Native server-side replacements for selected Vanilla Tweaks datapacks.",
+	"description": "Native replacements for selected Vanilla Tweaks datapacks, with a full armour stand editor GUI.",
 	"authors": [
 		"BelAndSigh"
 	],
 	"license": "CC0-1.0",
-	"environment": "server",
+	"environment": "*",
 	"entrypoints": {
 		"main": [
 			"dev.belandsigh.BelAndSighMod"
+		],
+		"client": [
+			"dev.belandsigh.client.BelAndSighClient"
 		]
 	},
 	"mixins": [
 		"belandsigh.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.19.5",
+		"fabricloader": ">=0.19.3",
 		"minecraft": "~26.2",
 		"java": ">=25",
 		"fabric-api": "*"

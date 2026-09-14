@@ -1,6 +1,7 @@
 package dev.belandsigh;
 
 import dev.belandsigh.armorstands.ArmorStandModule;
+import dev.belandsigh.armorstands.ArmorStandNetwork;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ public final class BelAndSighMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ArmorStandNetwork.initialize();
 		ArmorStandModule.initialize();
 		LOGGER.info("BelAndSigh initialized (Armor Stands module enabled)");
 	}

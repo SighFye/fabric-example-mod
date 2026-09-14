@@ -373,6 +373,159 @@ public final class ArmorStandMenu extends ChestMenu {
 		return stand.entityTags().contains(OWNER_PREFIX + playerId.toString().replace("-", ""));
 	}
 
+	public static void applyNetworkAction(ServerPlayer player, ArmorStand stand,
+			ArmorStandNetwork.ActionPayload payload) {
+		BodyPart part = payload.first() >= 0 && payload.first() < BodyPart.values().length
+				? BodyPart.values()[payload.first()] : null;
+		switch (payload.action()) {
+			case "base_plate" -> stand.setNoBasePlate(stand.showBasePlate());
+			case "arms" -> stand.setShowArms(!stand.showArms());
+			case "small" -> ((ArmorStandAccessor) stand).belandsigh$setSmall(!stand.isSmall());
+			case "gravity" -> stand.setNoGravity(!stand.isNoGravity());
+			case "visible" -> stand.setInvisible(!stand.isInvisible());
+			case "name_visible" -> stand.setCustomNameVisible(!stand.isCustomNameVisible());
+			case "invulnerable" -> stand.setInvulnerable(!stand.isInvulnerable());
+			case "lock" -> toggleNetworkLock(player, stand);
+			case "adjust" -> {
+				if (part != null && payload.second() >= 0 && payload.second() <= 2
+						&& Math.abs(payload.value()) <= 45.0) {
+					Rotations old = getNetworkPart(stand, part);
+					float x = old.x();
+					float y = old.y();
+					float z = old.z();
+					if (payload.second() == 0) x += (float) payload.value();
+					if (payload.second() == 1) y += (float) payload.value();
+					if (payload.second() == 2) z += (float) payload.value();
+					setNetworkPart(stand, part, new Rotations(x, y, z));
+				}
+			}
+			case "reset_part" -> {
+				if (part != null) setNetworkPart(stand, part, part.defaultRotation);
+			}
+			case "move" -> {
+				double amount = Math.max(-0.5, Math.min(0.5, payload.value()));
+				if (payload.first() == 0) stand.setPos(stand.getX() + amount, stand.getY(), stand.getZ());
+				if (payload.first() == 1) stand.setPos(stand.getX(), stand.getY() + amount, stand.getZ());
+				if (payload.first() == 2) stand.setPos(stand.getX(), stand.getY(), stand.getZ() + amount);
+			}
+			case "rotate" -> stand.setYRot(stand.getYRot() + (float) Math.max(-45.0, Math.min(45.0, payload.value())));
+			case "face_player" -> {
+				double dx = player.getX() - stand.getX();
+				double dz = player.getZ() - stand.getZ();
+				stand.setYRot((float) Math.toDegrees(Math.atan2(dz, dx)) - 90.0F);
+			}
+			case "center" -> stand.setPos(Math.floor(stand.getX()) + 0.5, stand.getY(), Math.floor(stand.getZ()) + 0.5);
+			case "preset" -> {
+				if (payload.first() >= 0 && payload.first() < PRESETS.length) {
+					stand.setArmorStandPose(PRESETS[payload.first()].pose);
+				}
+			}
+			case "random" -> {
+				ThreadLocalRandom random = ThreadLocalRandom.current();
+				for (BodyPart bodyPart : BodyPart.values()) {
+					setNetworkPart(stand, bodyPart, new Rotations(random.nextInt(-180, 181),
+							random.nextInt(-180, 181), random.nextInt(-180, 181)));
+				}
+			}
+			case "reset_pose" -> stand.setArmorStandPose(ArmorStand.ArmorStandPose.DEFAULT);
+			case "copy" -> {
+				CLIPBOARDS.put(player.getUUID(), stand.getArmorStandPose());
+				player.sendSystemMessage(Component.literal("Armor stand pose copied.").withStyle(ChatFormatting.GREEN));
+			}
+			case "paste" -> {
+				ArmorStand.ArmorStandPose copied = CLIPBOARDS.get(player.getUUID());
+				if (copied == null) {
+					player.sendSystemMessage(Component.literal("Copy a pose first.").withStyle(ChatFormatting.RED));
+				} else {
+					stand.setArmorStandPose(copied);
+				}
+			}
+			case "swap_hands" -> swapNetwork(stand, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND);
+			case "swap_head" -> swapNetwork(stand, EquipmentSlot.MAINHAND, EquipmentSlot.HEAD);
+			case "mirror" -> {
+				BodyPart target = payload.second() >= 0 && payload.second() < BodyPart.values().length
+						? BodyPart.values()[payload.second()] : null;
+				if (part != null && target != null) setNetworkPart(stand, target, mirroredNetwork(getNetworkPart(stand, part)));
+			}
+			case "flip" -> flipNetwork(stand);
+			case "point" -> {
+				if (part != null) pointNetwork(player, stand, part, payload.second() == 1);
+			}
+			default -> { }
+		}
+	}
+
+	private static Rotations getNetworkPart(ArmorStand stand, BodyPart part) {
+		return switch (part) {
+			case HEAD -> stand.getHeadPose();
+			case BODY -> stand.getBodyPose();
+			case LEFT_ARM -> stand.getLeftArmPose();
+			case RIGHT_ARM -> stand.getRightArmPose();
+			case LEFT_LEG -> stand.getLeftLegPose();
+			case RIGHT_LEG -> stand.getRightLegPose();
+		};
+	}
+
+	private static void setNetworkPart(ArmorStand stand, BodyPart part, Rotations rotation) {
+		switch (part) {
+			case HEAD -> stand.setHeadPose(rotation);
+			case BODY -> stand.setBodyPose(rotation);
+			case LEFT_ARM -> stand.setLeftArmPose(rotation);
+			case RIGHT_ARM -> stand.setRightArmPose(rotation);
+			case LEFT_LEG -> stand.setLeftLegPose(rotation);
+			case RIGHT_LEG -> stand.setRightLegPose(rotation);
+		}
+	}
+
+	private static void swapNetwork(ArmorStand stand, EquipmentSlot first, EquipmentSlot second) {
+		ItemStack firstStack = stand.getItemBySlot(first).copy();
+		ItemStack secondStack = stand.getItemBySlot(second).copy();
+		stand.setItemSlot(first, secondStack);
+		stand.setItemSlot(second, firstStack);
+	}
+
+	private static Rotations mirroredNetwork(Rotations rotation) {
+		return new Rotations(rotation.x(), -rotation.y(), -rotation.z());
+	}
+
+	private static void flipNetwork(ArmorStand stand) {
+		Rotations leftArm = stand.getLeftArmPose();
+		Rotations rightArm = stand.getRightArmPose();
+		Rotations leftLeg = stand.getLeftLegPose();
+		Rotations rightLeg = stand.getRightLegPose();
+		stand.setLeftArmPose(mirroredNetwork(rightArm));
+		stand.setRightArmPose(mirroredNetwork(leftArm));
+		stand.setLeftLegPose(mirroredNetwork(rightLeg));
+		stand.setRightLegPose(mirroredNetwork(leftLeg));
+		Rotations head = stand.getHeadPose();
+		Rotations body = stand.getBodyPose();
+		stand.setHeadPose(new Rotations(head.x(), -head.y(), -head.z()));
+		stand.setBodyPose(new Rotations(body.x(), -body.y(), -body.z()));
+	}
+
+	private static void pointNetwork(ServerPlayer player, ArmorStand stand, BodyPart part, boolean eyes) {
+		double originY = stand.getY() + (stand.isSmall() ? 0.8 : 1.45);
+		double targetY = eyes ? player.getEyeY() : player.getY();
+		double dx = player.getX() - stand.getX();
+		double dy = targetY - originY;
+		double dz = player.getZ() - stand.getZ();
+		float worldYaw = (float) Math.toDegrees(Math.atan2(dz, dx)) - 90.0F;
+		float localYaw = worldYaw - stand.getYRot();
+		float pitch = (float) -Math.toDegrees(Math.atan2(dy, Math.sqrt(dx * dx + dz * dz)));
+		if (part != BodyPart.HEAD && part != BodyPart.BODY) pitch -= 90.0F;
+		setNetworkPart(stand, part, new Rotations(pitch, localYaw, 0));
+	}
+
+	private static void toggleNetworkLock(ServerPlayer player, ArmorStand stand) {
+		if (isLocked(stand)) {
+			stand.removeTag(LOCKED_TAG);
+			stand.entityTags().stream().filter(tag -> tag.startsWith(OWNER_PREFIX)).toList().forEach(stand::removeTag);
+		} else {
+			stand.addTag(LOCKED_TAG);
+			stand.addTag(OWNER_PREFIX + player.getUUID().toString().replace("-", ""));
+		}
+	}
+
 	private void button(int slot, Item item, String name, Runnable action) {
 		ItemStack stack = new ItemStack(item);
 		stack.set(DataComponents.CUSTOM_NAME, Component.literal(name).withStyle(ChatFormatting.YELLOW));

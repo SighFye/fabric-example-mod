@@ -1,12 +1,14 @@
 # BelAndSigh
 
-A server-side Fabric mod for Minecraft 26.2 that replaces the selected Vanilla
-Tweaks datapacks with native Java implementations.
+A Fabric mod for Minecraft 26.2 that replaces the selected Vanilla Tweaks
+datapacks with native Java implementations.
 
 ## Armor Stands module
 
-Sneak-right-click an armor stand to open its editor. The editor uses a vanilla
-container screen, so connecting players do not need to install the mod.
+Sneak-right-click an armor stand to open its editor. Players with the mod
+installed get a native tabbed editor with checkboxes and buttons. Players
+without the client mod retain the vanilla container editor as a compatibility
+fallback.
 
 Current controls include:
 
@@ -26,8 +28,8 @@ scoreboards, marker entities, commands, or a posing book.
 
 - Minecraft Java Edition 26.2
 - Java 25
-- Fabric Loader 0.19.5 or newer
-- Fabric API 0.160.0+26.2
+- Fabric Loader 0.19.3 or newer
+- Fabric API 0.158.0+26.2 or newer
 
 Build with `./gradlew build`. The distributable JAR is written to `build/libs`.
 
