@@ -23,6 +23,7 @@ import net.minecraft.world.item.Items;
 
 /** Inventory-based fallback UI for clients without the custom editor screen. */
 public final class ArmorStandMenu extends ChestMenu {
+	private static final int GUI_COLUMNS = 9;
 	private static final int GUI_SIZE = 54;
 
 	private final SimpleContainer controls;
@@ -87,24 +88,24 @@ public final class ArmorStandMenu extends ChestMenu {
 	}
 
 	private void renderMain() {
-		button(10, Items.ARMOR_STAND, "Stand settings", () -> page = Page.SETTINGS);
-		button(12, Items.COMPARATOR, "Pose editor", () -> page = Page.POSE);
-		button(14, Items.COMPASS, "Position and rotation", () -> page = Page.POSITION);
-		button(16, Items.PAINTING, "Pose presets", () -> page = Page.PRESETS);
-		button(28, Items.SPYGLASS, "Point at player", () -> page = Page.POINTING);
-		button(30, Items.CHEST, "Copy pose", () -> execute(Action.COPY));
-		button(32, Items.WRITABLE_BOOK, "Paste pose", () -> execute(Action.PASTE));
-		button(34, Items.REDSTONE, "Utilities", () -> page = Page.UTILITIES);
-		button(49, Items.BARRIER, "Close", player::closeContainer);
+		button(slot(1, 1), Items.ARMOR_STAND, "Stand settings", () -> page = Page.SETTINGS);
+		button(slot(1, 3), Items.COMPARATOR, "Pose editor", () -> page = Page.POSE);
+		button(slot(1, 5), Items.COMPASS, "Position and rotation", () -> page = Page.POSITION);
+		button(slot(1, 7), Items.PAINTING, "Pose presets", () -> page = Page.PRESETS);
+		button(slot(3, 1), Items.SPYGLASS, "Point at player", () -> page = Page.POINTING);
+		button(slot(3, 3), Items.CHEST, "Copy pose", () -> execute(Action.COPY));
+		button(slot(3, 5), Items.WRITABLE_BOOK, "Paste pose", () -> execute(Action.PASTE));
+		button(slot(3, 7), Items.REDSTONE, "Utilities", () -> page = Page.UTILITIES);
+		button(slot(5, 4), Items.BARRIER, "Close", player::closeContainer);
 	}
 
 	private void renderSettings() {
-		button(10, Items.SMOOTH_STONE_SLAB, state("Base plate", stand.showBasePlate()), () -> execute(Action.BASE_PLATE));
-		button(12, Items.STICK, state("Arms", stand.showArms()), () -> execute(Action.ARMS));
-		button(14, Items.ARMOR_STAND, state("Small", stand.isSmall()), () -> execute(Action.SMALL));
-		button(16, Items.FEATHER, state("Gravity", !stand.isNoGravity()), () -> execute(Action.GRAVITY));
-		button(28, Items.ENDER_EYE, state("Visible", !stand.isInvisible()), () -> execute(Action.VISIBLE));
-		button(30, Items.NAME_TAG, state("Name visible", stand.isCustomNameVisible()), () -> execute(Action.NAME_VISIBLE));
+		button(slot(1, 1), Items.SMOOTH_STONE_SLAB, state("Base plate", stand.showBasePlate()), () -> execute(Action.BASE_PLATE));
+		button(slot(1, 3), Items.STICK, state("Arms", stand.showArms()), () -> execute(Action.ARMS));
+		button(slot(1, 5), Items.ARMOR_STAND, state("Small", stand.isSmall()), () -> execute(Action.SMALL));
+		button(slot(1, 7), Items.FEATHER, state("Gravity", !stand.isNoGravity()), () -> execute(Action.GRAVITY));
+		button(slot(3, 1), Items.ENDER_EYE, state("Visible", !stand.isInvisible()), () -> execute(Action.VISIBLE));
+		button(slot(3, 3), Items.NAME_TAG, state("Name visible", stand.isCustomNameVisible()), () -> execute(Action.NAME_VISIBLE));
 		back();
 	}
 
@@ -112,7 +113,7 @@ public final class ArmorStandMenu extends ChestMenu {
 		BodyPart[] parts = BodyPart.values();
 		for (int row = 0; row < parts.length; row++) {
 			BodyPart part = parts[row];
-			int base = row * 9;
+			int base = row * GUI_COLUMNS;
 			label(base, Items.ARMOR_STAND, part.label());
 			button(base + 1, Items.DYE.pick(DyeColor.RED), "X -" + formatStep(), () -> execute(Action.ADJUST, part.ordinal(), 0, -angleStep));
 			button(base + 2, Items.DYE.pick(DyeColor.LIME), "X +" + formatStep(), () -> execute(Action.ADJUST, part.ordinal(), 0, angleStep));
@@ -124,22 +125,22 @@ public final class ArmorStandMenu extends ChestMenu {
 				button(base + 8, Items.BONE_MEAL, "Reset " + part.label(), () -> execute(Action.RESET_PART, part.ordinal(), 0, 0));
 			}
 		}
-		button(7, Items.CLOCK, "Angle step: " + formatStep(), this::cycleAngleStep);
-		button(8, Items.ARROW, "Back", () -> page = Page.MAIN);
+		button(slot(0, 7), Items.CLOCK, "Angle step: " + formatStep(), this::cycleAngleStep);
+		button(slot(0, 8), Items.ARROW, "Back", () -> page = Page.MAIN);
 	}
 
 	private void renderPosition() {
-		positionRow(9, "X", 0);
-		positionRow(18, "Y", 1);
-		positionRow(27, "Z", 2);
-		label(36, Items.COMPASS, "Yaw");
-		button(37, Items.DYE.pick(DyeColor.RED), "Yaw -45°", () -> execute(Action.ROTATE, -45));
-		button(38, Items.DYE.pick(DyeColor.RED), "Yaw -" + formatStep(), () -> execute(Action.ROTATE, -angleStep));
-		button(39, Items.DYE.pick(DyeColor.LIME), "Yaw +" + formatStep(), () -> execute(Action.ROTATE, angleStep));
-		button(40, Items.DYE.pick(DyeColor.LIME), "Yaw +45°", () -> execute(Action.ROTATE, 45));
-		button(42, Items.ENDER_EYE, "Face player", () -> execute(Action.FACE_PLAYER));
-		button(43, Items.TARGET, "Center on block", () -> execute(Action.CENTER));
-		button(44, Items.CLOCK, "Angle step: " + formatStep(), this::cycleAngleStep);
+		positionRow(slot(1, 0), "X", 0);
+		positionRow(slot(2, 0), "Y", 1);
+		positionRow(slot(3, 0), "Z", 2);
+		label(slot(4, 0), Items.COMPASS, "Yaw");
+		button(slot(4, 1), Items.DYE.pick(DyeColor.RED), "Yaw -45°", () -> execute(Action.ROTATE, -45));
+		button(slot(4, 2), Items.DYE.pick(DyeColor.RED), "Yaw -" + formatStep(), () -> execute(Action.ROTATE, -angleStep));
+		button(slot(4, 3), Items.DYE.pick(DyeColor.LIME), "Yaw +" + formatStep(), () -> execute(Action.ROTATE, angleStep));
+		button(slot(4, 4), Items.DYE.pick(DyeColor.LIME), "Yaw +45°", () -> execute(Action.ROTATE, 45));
+		button(slot(4, 6), Items.ENDER_EYE, "Face player", () -> execute(Action.FACE_PLAYER));
+		button(slot(4, 7), Items.TARGET, "Center on block", () -> execute(Action.CENTER));
+		button(slot(4, 8), Items.CLOCK, "Angle step: " + formatStep(), this::cycleAngleStep);
 		back();
 	}
 
@@ -157,26 +158,26 @@ public final class ArmorStandMenu extends ChestMenu {
 		for (int i = 0; i < ArmorStandActions.PRESETS.size(); i++) {
 			int presetIndex = i;
 			Preset preset = ArmorStandActions.PRESETS.get(i);
-			button(9 + i + (i / 9), Items.ARMOR_STAND, preset.name(), () -> execute(Action.PRESET, presetIndex, 0, 0));
+			button(GUI_COLUMNS + i + (i / GUI_COLUMNS), Items.ARMOR_STAND, preset.name(), () -> execute(Action.PRESET, presetIndex, 0, 0));
 		}
-		button(43, Items.FIREWORK_STAR, "Random pose", () -> execute(Action.RANDOM));
+		button(slot(4, 7), Items.FIREWORK_STAR, "Random pose", () -> execute(Action.RANDOM));
 		back();
 	}
 
 	private void renderUtilities() {
-		button(10, Items.CHEST, "Copy pose", () -> execute(Action.COPY));
-		button(12, Items.WRITABLE_BOOK, "Paste pose", () -> execute(Action.PASTE));
-		button(14, Items.BONE_MEAL, "Reset pose", () -> execute(Action.RESET_POSE));
-		button(16, Items.FIREWORK_STAR, "Random pose", () -> execute(Action.RANDOM));
-		button(28, Items.STICK, "Swap main/off hands", () -> execute(Action.SWAP_HANDS));
-		button(30, Items.IRON_HELMET, "Swap main hand/head", () -> execute(Action.SWAP_HEAD));
-		button(32, Items.SHIELD, state("Locked", ArmorStandActions.isLocked(stand)), () -> execute(Action.LOCK));
-		button(34, Items.BEDROCK, state("Invulnerable", stand.isInvulnerable()), () -> execute(Action.INVULNERABLE));
-		button(37, Items.IRON_SWORD, "Mirror left arm to right", () -> mirror(BodyPart.LEFT_ARM, BodyPart.RIGHT_ARM));
-		button(38, Items.IRON_SWORD, "Mirror right arm to left", () -> mirror(BodyPart.RIGHT_ARM, BodyPart.LEFT_ARM));
-		button(39, Items.IRON_BOOTS, "Mirror left leg to right", () -> mirror(BodyPart.LEFT_LEG, BodyPart.RIGHT_LEG));
-		button(40, Items.IRON_BOOTS, "Mirror right leg to left", () -> mirror(BodyPart.RIGHT_LEG, BodyPart.LEFT_LEG));
-		button(42, Items.GLASS, "Flip entire pose", () -> execute(Action.FLIP));
+		button(slot(1, 1), Items.CHEST, "Copy pose", () -> execute(Action.COPY));
+		button(slot(1, 3), Items.WRITABLE_BOOK, "Paste pose", () -> execute(Action.PASTE));
+		button(slot(1, 5), Items.BONE_MEAL, "Reset pose", () -> execute(Action.RESET_POSE));
+		button(slot(1, 7), Items.FIREWORK_STAR, "Random pose", () -> execute(Action.RANDOM));
+		button(slot(3, 1), Items.STICK, "Swap main/off hands", () -> execute(Action.SWAP_HANDS));
+		button(slot(3, 3), Items.IRON_HELMET, "Swap main hand/head", () -> execute(Action.SWAP_HEAD));
+		button(slot(3, 5), Items.SHIELD, state("Locked", ArmorStandActions.isLocked(stand)), () -> execute(Action.LOCK));
+		button(slot(3, 7), Items.BEDROCK, state("Invulnerable", stand.isInvulnerable()), () -> execute(Action.INVULNERABLE));
+		button(slot(4, 1), Items.IRON_SWORD, "Mirror left arm to right", () -> mirror(BodyPart.LEFT_ARM, BodyPart.RIGHT_ARM));
+		button(slot(4, 2), Items.IRON_SWORD, "Mirror right arm to left", () -> mirror(BodyPart.RIGHT_ARM, BodyPart.LEFT_ARM));
+		button(slot(4, 3), Items.IRON_BOOTS, "Mirror left leg to right", () -> mirror(BodyPart.LEFT_LEG, BodyPart.RIGHT_LEG));
+		button(slot(4, 4), Items.IRON_BOOTS, "Mirror right leg to left", () -> mirror(BodyPart.RIGHT_LEG, BodyPart.LEFT_LEG));
+		button(slot(4, 6), Items.GLASS, "Flip entire pose", () -> execute(Action.FLIP));
 		back();
 	}
 
@@ -184,16 +185,16 @@ public final class ArmorStandMenu extends ChestMenu {
 		BodyPart[] parts = BodyPart.values();
 		for (int row = 0; row < parts.length; row++) {
 			BodyPart part = parts[row];
-			int base = row * 9;
+			int base = row * GUI_COLUMNS;
 			label(base, Items.ARMOR_STAND, part.label());
 			button(base + 2, Items.ENDER_EYE, "Point at player eyes", () -> execute(Action.POINT, part.ordinal(), 1, 0));
 			button(base + 4, Items.LEATHER_BOOTS, "Point at player feet", () -> execute(Action.POINT, part.ordinal(), 0, 0));
 		}
-		button(8, Items.ARROW, "Back", () -> page = Page.MAIN);
+		button(slot(0, 8), Items.ARROW, "Back", () -> page = Page.MAIN);
 	}
 
 	private void back() {
-		button(49, Items.ARROW, "Back", () -> page = Page.MAIN);
+		button(slot(5, 4), Items.ARROW, "Back", () -> page = Page.MAIN);
 	}
 
 	private void execute(Action action) {
@@ -235,6 +236,10 @@ public final class ArmorStandMenu extends ChestMenu {
 
 	private static String state(String label, boolean enabled) {
 		return label + ": " + (enabled ? "ON" : "OFF");
+	}
+
+	private static int slot(int row, int column) {
+		return row * GUI_COLUMNS + column;
 	}
 
 	private enum Page { MAIN, SETTINGS, POSE, POSITION, PRESETS, POINTING, UTILITIES }

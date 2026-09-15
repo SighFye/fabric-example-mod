@@ -94,10 +94,12 @@ public final class DurabilityPingModule {
 
 	private static void ping(ServerPlayer player, ItemStack stack, int remaining, DurabilityPingPreferences preferences) {
 		Component itemName = stack.getHoverName().copy().withStyle(ChatFormatting.GOLD);
-		Component warning = itemName.copy()
-			.append(Component.literal(" durability low! ").withStyle(ChatFormatting.RED))
+		Component header = itemName.copy().append(Component.literal(" durability low!").withStyle(ChatFormatting.RED));
+		Component remainingSuffix = Component.literal(" of " + stack.getMaxDamage() + " remaining.").withStyle(ChatFormatting.RED);
+		Component warning = header.copy()
+			.append(Component.literal(" "))
 			.append(Component.literal(Integer.toString(remaining)).withStyle(ChatFormatting.GOLD))
-			.append(Component.literal(" of " + stack.getMaxDamage() + " remaining.").withStyle(ChatFormatting.RED));
+			.append(remainingSuffix);
 
 		if (preferences.belandsigh$pingSoundEnabled()) {
 			player.connection.send(new ClientboundSoundPacket(
@@ -115,10 +117,9 @@ public final class DurabilityPingModule {
 			}
 			case TITLE -> {
 				player.connection.send(new ClientboundClearTitlesPacket(true));
-				player.connection.send(new ClientboundSetTitleTextPacket(
-					itemName.copy().append(Component.literal(" durability low!").withStyle(ChatFormatting.RED))));
+				player.connection.send(new ClientboundSetTitleTextPacket(header));
 				player.connection.send(new ClientboundSetSubtitleTextPacket(
-					Component.literal(remaining + " of " + stack.getMaxDamage() + " remaining.").withStyle(ChatFormatting.RED)));
+					Component.literal(Integer.toString(remaining)).withStyle(ChatFormatting.RED).append(remainingSuffix)));
 			}
 			case CHAT -> player.sendSystemMessage(warning);
 			case ACTIONBAR -> player.sendOverlayMessage(warning);

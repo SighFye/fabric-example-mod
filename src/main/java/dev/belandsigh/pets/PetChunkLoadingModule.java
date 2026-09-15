@@ -23,6 +23,7 @@ import java.util.Set;
 /** Keeps actively-following tameable animals ticking when they fall outside player-loaded chunks. */
 public final class PetChunkLoadingModule {
 	private static final int ENTITY_TICKING_RADIUS = 2;
+	private static final int RECONCILE_INTERVAL_TICKS = 20;
 	private static final TicketType PET_TICKET = Registry.register(
 		BuiltInRegistries.TICKET_TYPE,
 		Identifier.fromNamespaceAndPath(BelAndSighMod.MOD_ID, "following_pet"),
@@ -36,6 +37,9 @@ public final class PetChunkLoadingModule {
 
 	public static void initialize() {
 		ServerTickEvents.END_SERVER_TICK.register(server -> {
+			if (server.getTickCount() % RECONCILE_INTERVAL_TICKS != 0) {
+				return;
+			}
 			for (ServerLevel level : server.getAllLevels()) {
 				updateTickets(level);
 			}

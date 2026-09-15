@@ -23,26 +23,26 @@ public final class ArmorStandActions {
 	private static final Map<UUID, ArmorStand.ArmorStandPose> CLIPBOARDS = new HashMap<>();
 
 	public static final List<Preset> PRESETS = List.of(
-		new Preset("Straight", pose(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)),
-		new Preset("Walking", pose(0, 0, 0, 0, 0, 0, 20, 0, -10, -20, 0, 10, 20, 0, 0, -20, 0, 0)),
-		new Preset("Running", pose(0, 0, 0, 0, 0, 0, 40, 0, -10, -40, 0, 10, -40, 0, 0, 40, 0, 0)),
-		new Preset("Pointing", pose(0, 20, 0, 0, 0, 0, 0, 0, -10, -90, 18, 0, 0, 0, 0, 0, 0, 0)),
-		new Preset("Blocking", pose(0, 0, 0, 0, 0, 0, -50, 50, 0, -20, -20, 0, 20, 0, 0, -20, 0, 0)),
-		new Preset("Lunging", pose(0, 0, 0, 15, 0, 0, 10, 0, -10, -60, -10, 0, 30, 0, 0, -15, 0, 0)),
-		new Preset("Winning", pose(-15, 0, 0, 0, 0, 0, 10, 0, -10, -120, -10, 0, 15, 0, 0, 0, 0, 0)),
-		new Preset("Flying", pose(0, 0, 0, 0, 0, 0, -80, -20, 0, -80, 20, 0, -90, -10, 0, -90, 10, 0)),
-		new Preset("Zombie", pose(-15, 0, 0, 10, 0, 0, 70, 0, -10, -140, -10, 0, 75, 0, 0, 0, 0, 0)),
-		new Preset("Sitting", pose(0, 0, 0, 10, 0, 0, -75, 0, 10, -90, -10, 0, 75, 0, 0, 0, 0, 0)),
-		new Preset("Confident", pose(-10, 20, 0, -2, 0, 0, 5, 0, 0, 5, 0, 0, 0, -10, -4, 16, 2, 10)),
-		new Preset("Aiming", pose(0, 0, 0, 5, 0, 0, 29, 0, 25, -124, -51, -35, 0, 4, 2, 0, -4, -2)),
-		new Preset("Sleeping", pose(-85, 0, 0, -90, 0, 0, -90, -10, 0, -90, 10, 0, 0, 0, 0, 0, 0, 0)),
-		new Preset("Archer", pose(45, -4, 1, 10, 0, 0, -72, 24, 47, 18, -14, 0, -4, -6, -2, 25, -2, 0)),
-		new Preset("Dancing", pose(14, -12, 6, 5, 0, 0, -4, -20, -10, -40, 20, 0, -88, 46, 0, -88, 71, 0)),
-		new Preset("Saluting", pose(0, 30, 0, 0, 13, 0, 145, 22, -49, -22, 31, 10, -6, 0, 0, 6, -20, 0)),
-		new Preset("Hugging", pose(4, 0, 0, 4, 0, 0, 30, -20, 21, 30, 22, -20, 0, 0, -5, 0, 0, 5)),
-		new Preset("Thinking", pose(63, 0, 0, 10, 0, 0, -5, 0, -5, -5, 0, 5, -5, 16, -5, -5, -10, 5)),
-		new Preset("T-Pose", pose(-11, 0, 0, -4, 0, 0, 0, 0, -100, 0, 0, 100, -8, 0, -60, -8, 0, 60)),
-		new Preset("Facepalm", pose(-22, 25, 0, -4, 10, 0, 4, 18, 0, -153, 34, -3, 6, 24, 0, -4, 17, 2))
+		new Preset("Straight", pose(head(0, 0, 0), body(0, 0, 0), leftArm(0, 0, 0), rightArm(0, 0, 0), leftLeg(0, 0, 0), rightLeg(0, 0, 0))),
+		new Preset("Walking", pose(head(0, 0, 0), body(0, 0, 0), leftArm(20, 0, -10), rightArm(-20, 0, 10), leftLeg(20, 0, 0), rightLeg(-20, 0, 0))),
+		new Preset("Running", pose(head(0, 0, 0), body(0, 0, 0), leftArm(40, 0, -10), rightArm(-40, 0, 10), leftLeg(-40, 0, 0), rightLeg(40, 0, 0))),
+		new Preset("Pointing", pose(head(0, 20, 0), body(0, 0, 0), leftArm(0, 0, -10), rightArm(-90, 18, 0), leftLeg(0, 0, 0), rightLeg(0, 0, 0))),
+		new Preset("Blocking", pose(head(0, 0, 0), body(0, 0, 0), leftArm(-50, 50, 0), rightArm(-20, -20, 0), leftLeg(20, 0, 0), rightLeg(-20, 0, 0))),
+		new Preset("Lunging", pose(head(0, 0, 0), body(15, 0, 0), leftArm(10, 0, -10), rightArm(-60, -10, 0), leftLeg(30, 0, 0), rightLeg(-15, 0, 0))),
+		new Preset("Winning", pose(head(-15, 0, 0), body(0, 0, 0), leftArm(10, 0, -10), rightArm(-120, -10, 0), leftLeg(15, 0, 0), rightLeg(0, 0, 0))),
+		new Preset("Flying", pose(head(0, 0, 0), body(0, 0, 0), leftArm(-80, -20, 0), rightArm(-80, 20, 0), leftLeg(-90, -10, 0), rightLeg(-90, 10, 0))),
+		new Preset("Zombie", pose(head(-15, 0, 0), body(10, 0, 0), leftArm(70, 0, -10), rightArm(-140, -10, 0), leftLeg(75, 0, 0), rightLeg(0, 0, 0))),
+		new Preset("Sitting", pose(head(0, 0, 0), body(10, 0, 0), leftArm(-75, 0, 10), rightArm(-90, -10, 0), leftLeg(75, 0, 0), rightLeg(0, 0, 0))),
+		new Preset("Confident", pose(head(-10, 20, 0), body(-2, 0, 0), leftArm(5, 0, 0), rightArm(5, 0, 0), leftLeg(0, -10, -4), rightLeg(16, 2, 10))),
+		new Preset("Aiming", pose(head(0, 0, 0), body(5, 0, 0), leftArm(29, 0, 25), rightArm(-124, -51, -35), leftLeg(0, 4, 2), rightLeg(0, -4, -2))),
+		new Preset("Sleeping", pose(head(-85, 0, 0), body(-90, 0, 0), leftArm(-90, -10, 0), rightArm(-90, 10, 0), leftLeg(0, 0, 0), rightLeg(0, 0, 0))),
+		new Preset("Archer", pose(head(45, -4, 1), body(10, 0, 0), leftArm(-72, 24, 47), rightArm(18, -14, 0), leftLeg(-4, -6, -2), rightLeg(25, -2, 0))),
+		new Preset("Dancing", pose(head(14, -12, 6), body(5, 0, 0), leftArm(-4, -20, -10), rightArm(-40, 20, 0), leftLeg(-88, 46, 0), rightLeg(-88, 71, 0))),
+		new Preset("Saluting", pose(head(0, 30, 0), body(0, 13, 0), leftArm(145, 22, -49), rightArm(-22, 31, 10), leftLeg(-6, 0, 0), rightLeg(6, -20, 0))),
+		new Preset("Hugging", pose(head(4, 0, 0), body(4, 0, 0), leftArm(30, -20, 21), rightArm(30, 22, -20), leftLeg(0, 0, -5), rightLeg(0, 0, 5))),
+		new Preset("Thinking", pose(head(63, 0, 0), body(10, 0, 0), leftArm(-5, 0, -5), rightArm(-5, 0, 5), leftLeg(-5, 16, -5), rightLeg(-5, -10, 5))),
+		new Preset("T-Pose", pose(head(-11, 0, 0), body(-4, 0, 0), leftArm(0, 0, -100), rightArm(0, 0, 100), leftLeg(-8, 0, -60), rightLeg(-8, 0, 60))),
+		new Preset("Facepalm", pose(head(-22, 25, 0), body(-4, 10, 0), leftArm(4, 18, 0), rightArm(-153, 34, -3), leftLeg(6, 24, 0), rightLeg(-4, 17, 2)))
 	);
 
 	private ArmorStandActions() {
@@ -234,13 +234,34 @@ public final class ArmorStandActions {
 		stand.addTag(OWNER_PREFIX + player.getUUID().toString().replace("-", ""));
 	}
 
-	private static ArmorStand.ArmorStandPose pose(float hx, float hy, float hz, float bx, float by, float bz,
-			float lax, float lay, float laz, float rax, float ray, float raz,
-			float llx, float lly, float llz, float rlx, float rly, float rlz) {
+	private static ArmorStand.ArmorStandPose pose(Rotations head, Rotations body, Rotations leftArm,
+			Rotations rightArm, Rotations leftLeg, Rotations rightLeg) {
 		return new ArmorStand.ArmorStandPose(
-				new Rotations(hx, hy, hz), new Rotations(bx, by, bz),
-				new Rotations(lax, lay, laz), new Rotations(rax, ray, raz),
-				new Rotations(llx, lly, llz), new Rotations(rlx, rly, rlz));
+				head, body, leftArm, rightArm, leftLeg, rightLeg);
+	}
+
+	private static Rotations head(float x, float y, float z) {
+		return new Rotations(x, y, z);
+	}
+
+	private static Rotations body(float x, float y, float z) {
+		return new Rotations(x, y, z);
+	}
+
+	private static Rotations leftArm(float x, float y, float z) {
+		return new Rotations(x, y, z);
+	}
+
+	private static Rotations rightArm(float x, float y, float z) {
+		return new Rotations(x, y, z);
+	}
+
+	private static Rotations leftLeg(float x, float y, float z) {
+		return new Rotations(x, y, z);
+	}
+
+	private static Rotations rightLeg(float x, float y, float z) {
+		return new Rotations(x, y, z);
 	}
 
 	public enum Action {
