@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "id": "belandsigh:mount_whistle"
+    },
+    "title": {
+      "translate": "advancements.belandsigh.mount_whistle.title"
+    },
+    "description": {
+      "translate": "advancements.belandsigh.mount_whistle.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "has_mount_whistle": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "belandsigh:mount_whistle"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_mount_whistle"
+    ]
+  ]
+}

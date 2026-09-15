@@ -6,6 +6,7 @@ import dev.belandsigh.cauldrons.CauldronConversionModule;
 import dev.belandsigh.customportals.CustomNetherPortalModule;
 import dev.belandsigh.durability.DurabilityPingModule;
 import dev.belandsigh.mobheads.MoreMobHeadsModule;
+import dev.belandsigh.mounts.MountWhistleModule;
 import dev.belandsigh.pets.PetChunkLoadingModule;
 import dev.belandsigh.playerheads.PlayerHeadsModule;
 import dev.belandsigh.recipes.UnlockAllRecipesModule;
@@ -25,9 +26,10 @@ public final class BelAndSighMod implements ModInitializer {
 		CustomNetherPortalModule.initialize();
 		DurabilityPingModule.initialize();
 		MoreMobHeadsModule.initialize();
+		MountWhistleModule.initialize();
 		PetChunkLoadingModule.initialize();
 		PlayerHeadsModule.initialize();
 		UnlockAllRecipesModule.initialize();
-		LOGGER.info("BelAndSigh initialized (Armor Stands, Cauldron Conversions, Custom Nether Portals, Durability Ping, Ender Chest Always Drops, Fast Leaf Decay, Mini Blocks, More Mob Heads, Pet Chunk Loading, Player Heads, and Unlock All Recipes modules enabled)");
+		LOGGER.info("BelAndSigh initialized (Armor Stands, Cauldron Conversions, Custom Nether Portals, Durability Ping, Ender Chest Always Drops, Fast Leaf Decay, Mini Blocks, More Mob Heads, Mount Whistle, Pet Chunk Loading, Player Heads, and Unlock All Recipes modules enabled)");
 	}
 }

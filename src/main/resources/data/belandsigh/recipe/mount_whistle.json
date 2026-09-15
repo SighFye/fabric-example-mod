@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "minecraft:amethyst_shard",
+    "E": "minecraft:echo_shard",
+    "G": "minecraft:gold_ingot"
+  },
+  "pattern": [
+    " GG",
+    " EG",
+    "A  "
+  ],
+  "result": {
+    "id": "belandsigh:mount_whistle"
+  }
+}

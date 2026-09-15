@@ -3,13 +3,19 @@
 	"package": "dev.belandsigh.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
+		"AbstractHorseAccessor",
 		"ArmorStandAccessor",
 		"BaseFireBlockMixin",
 		"CamelTamingMixin",
 		"LeavesBlockMixin",
+		"EntityMountBindingMixin",
 		"NetherPortalBlockMixin",
 		"PortalShapeMixin"
+		,"ServerPlayerMountSelectionMixin"
 		,"ServerPlayerDurabilityPingMixin"
+	],
+	"client": [
+		"InventoryScreenMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

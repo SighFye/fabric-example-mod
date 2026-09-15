@@ -1,0 +1,44 @@
+{
+  "item.belandsigh.mount_whistle": "Mount Whistle",
+  "advancements.belandsigh.mount_whistle.title": "Echoes Across Distance",
+  "advancements.belandsigh.mount_whistle.description": "Craft a Mount Whistle to call your mounts home",
+  "subtitles.belandsigh.mount_whistle": "Mount Whistle sounds",
+  "message.belandsigh.mount_selection.cleared": "%s mount selection cleared.",
+  "message.belandsigh.mount_selection.dead": "That mount is not alive.",
+  "message.belandsigh.mount_selection.incompatible": "That mount is not compatible with the %s slot.",
+  "message.belandsigh.mount_selection.not_found": "That mount could not be found.",
+  "message.belandsigh.mount_selection.not_owned": "You do not own that mount.",
+  "message.belandsigh.mount_selection.success": "%s mount selected.",
+  "message.belandsigh.mount_recall.success": "Your mount heard the call.",
+  "message.belandsigh.mount_recall.loading": "Your mount is answering the call…",
+  "message.belandsigh.mount_recall.no_selection.land": "No land mount selected.",
+  "message.belandsigh.mount_recall.no_selection.water": "No water mount selected.",
+  "message.belandsigh.mount_recall.no_selection.lava": "No lava mount selected.",
+  "message.belandsigh.mount_recall.not_found": "Your selected mount could not be found.",
+  "message.belandsigh.mount_recall.dead": "Your selected mount is no longer alive.",
+  "message.belandsigh.mount_recall.not_owned": "That mount no longer belongs to you.",
+  "message.belandsigh.mount_recall.incompatible": "That mount no longer supports this environment.",
+  "message.belandsigh.mount_recall.wrong_dimension": "Your mount is in another dimension.",
+  "message.belandsigh.mount_recall.already_riding": "You are already riding that mount.",
+  "message.belandsigh.mount_recall.occupied": "Your mount is currently being ridden.",
+  "message.belandsigh.mount_recall.no_safe_position": "Your mount cannot reach you here.",
+  "message.belandsigh.mount_recall.teleport_failed": "Your mount could not answer the call."
+  ,"message.belandsigh.mount_unbind.native": "Tamed mounts must be managed through their normal ownership system."
+  ,"message.belandsigh.mount_unbind.not_found": "That bound mount could not be found."
+  ,"message.belandsigh.mount_unbind.not_owner": "You do not own that bound mount."
+  ,"message.belandsigh.mount_unbind.success": "Mount unbound."
+  ,"screen.belandsigh.mount_management": "Mount Management"
+  ,"screen.belandsigh.mount_management.back": "Back"
+  ,"screen.belandsigh.mount_management.bound": "Bound Mounts"
+  ,"screen.belandsigh.mount_management.choose": "Choose"
+  ,"screen.belandsigh.mount_management.clear": "Clear"
+  ,"screen.belandsigh.mount_management.close": "Done"
+  ,"screen.belandsigh.mount_management.empty": "No compatible owned mounts have been discovered yet."
+  ,"screen.belandsigh.mount_management.inventory_button": "Manage mounts"
+  ,"screen.belandsigh.mount_management.loading": "Loading owned mounts…"
+  ,"screen.belandsigh.mount_management.next": "Next"
+  ,"screen.belandsigh.mount_management.none": "None selected"
+  ,"screen.belandsigh.mount_management.previous": "Previous"
+  ,"screen.belandsigh.mount_management.select": "Select"
+  ,"screen.belandsigh.mount_management.unbind": "Unbind"
+}

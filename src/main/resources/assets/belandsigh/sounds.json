@@ -1,0 +1,11 @@
+{
+  "mount_whistle": {
+    "sounds": [
+      {
+        "name": "minecraft:mob/parrot/idle4",
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.belandsigh.mount_whistle"
+  }
+}
