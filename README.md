@@ -35,3 +35,68 @@ Build with `./gradlew build`. The distributable JAR is written to `build/libs`.
 
 Armor Stand behavior and presets are based on Vanilla Tweaks Armor Statues
 v2.8.23 by Stick God and the Vanilla Tweaks team.
+
+## Cauldron conversions
+
+Right-click a water cauldron while holding concrete powder to harden the entire
+held stack into concrete. Dirt, coarse dirt, and rooted dirt similarly convert
+into mud. The conversion does not consume water. Sneak-right-click bypasses the
+conversion and retains normal block placement behavior.
+
+## Fast Leaf Decay
+
+Naturally generated leaves decay rapidly after losing their supporting logs.
+The implementation uses Minecraft's existing scheduled leaf updates and normal
+leaf decay behavior, so loot tables and the `doTileDrops` gamerule are respected.
+Player-placed leaves remain protected by their vanilla `persistent` block state.
+
+## Custom Nether Portals
+
+Nether portals can use non-rectangular frames and any mixture of obsidian and
+crying obsidian. Vanilla handles rectangular portals directly; irregular frames
+use a bounded native flood-fill during activation and validation. Frames require
+10 to 84 edge blocks. Frame blocks are controlled by the
+`belandsigh:nether_portal_frame_blocks` block tag so datapacks and other mods can
+extend the allowed materials.
+
+## Unlock All Recipes
+
+Every recipe is added to a player's recipe book when they join the server.
+Online players are also granted any newly loaded recipes after a successful
+datapack reload.
+
+## Durability Ping
+
+Damageable items in either hand and equipped armor produce an anvil ping and a
+subtitle warning when they reach 10% durability. Hand and armor alerts have
+independent three-second cooldowns. Each player's settings persist with their
+player data and can be changed with `/durabilityping`.
+
+## Ender Chest Always Drops
+
+Ender chests always drop themselves when broken, even without Silk Touch.
+
+## Mini Blocks
+
+Put a supported full-size block into a stonecutter to turn it into eight
+matching mini blocks. Mini blocks are textured player heads, can be placed in
+all the usual head orientations, and retain their appearance when broken.
+
+Recipes cover more than 200 building, natural, storage, ore, workstation, and
+decorative blocks. Because the recipes are shipped as server data, unmodded
+clients can craft, place, and see the mini blocks when playing on a modded
+server.
+
+## Player Heads
+
+The mod drops a player's head whenever that player dies, including deaths caused
+by mobs or the environment. Operators can use `/playerhead <player>` to get the
+head of any Java Edition player by name; the named player does not need to be
+online or to have joined the server before.
+
+## More Mob Heads
+
+Supported mobs have a chance to drop their custom head when killed by a player.
+Drop rates vary by mob and Looting increases the chance. Variant-aware mobs,
+including cats, cows, frogs, sheep, villagers, and wolves, drop the matching
+variant head. Existing vanilla loot remains unchanged.

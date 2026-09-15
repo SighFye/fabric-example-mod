@@ -3,7 +3,12 @@
 	"package": "dev.belandsigh.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-		"ArmorStandAccessor"
+		"ArmorStandAccessor",
+		"BaseFireBlockMixin",
+		"LeavesBlockMixin",
+		"NetherPortalBlockMixin",
+		"PortalShapeMixin"
+		,"ServerPlayerDurabilityPingMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
