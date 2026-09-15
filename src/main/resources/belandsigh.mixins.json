@@ -5,6 +5,7 @@
 	"mixins": [
 		"ArmorStandAccessor",
 		"BaseFireBlockMixin",
+		"CamelTamingMixin",
 		"LeavesBlockMixin",
 		"NetherPortalBlockMixin",
 		"PortalShapeMixin"
