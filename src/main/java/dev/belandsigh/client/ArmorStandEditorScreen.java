@@ -1,5 +1,8 @@
 package dev.belandsigh.client;
 
+import dev.belandsigh.armorstands.ArmorStandActions;
+import dev.belandsigh.armorstands.ArmorStandActions.Action;
+import dev.belandsigh.armorstands.ArmorStandActions.BodyPart;
 import dev.belandsigh.armorstands.ArmorStandNetwork.ActionPayload;
 import dev.belandsigh.armorstands.ArmorStandNetwork.StatePayload;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -12,13 +15,6 @@ import net.minecraft.network.chat.Component;
 public final class ArmorStandEditorScreen extends Screen {
 	private static ArmorStandEditorScreen current;
 	private static final String[] TAB_NAMES = {"Stand", "Pose", "Position", "Presets", "Tools"};
-	private static final String[] PART_NAMES = {"Head", "Body", "Left arm", "Right arm", "Left leg", "Right leg"};
-	private static final String[] PRESET_NAMES = {
-			"Straight", "Walking", "Running", "Pointing", "Blocking",
-			"Lunging", "Winning", "Flying", "Zombie", "Sitting",
-			"Confident", "Aiming", "Sleeping", "Archer", "Dancing",
-			"Saluting", "Hugging", "Thinking", "T-Pose", "Facepalm"
-	};
 
 	private final int entityId;
 	private StatePayload state;
@@ -90,14 +86,14 @@ public final class ArmorStandEditorScreen extends Screen {
 		int y = top + 68;
 		int firstX = left + 20;
 		int secondX = right + 20;
-		addCheckbox(firstX, y, "Base plate", state.basePlate(), "base_plate");
-		addCheckbox(secondX, y, "Show arms", state.arms(), "arms");
-		addCheckbox(firstX, y + 30, "Small stand", state.small(), "small");
-		addCheckbox(secondX, y + 30, "Gravity", state.gravity(), "gravity");
-		addCheckbox(firstX, y + 60, "Visible", state.visible(), "visible");
-		addCheckbox(secondX, y + 60, "Show name", state.nameVisible(), "name_visible");
-		addCheckbox(firstX, y + 90, "Owner locked", state.locked(), "lock");
-		addCheckbox(secondX, y + 90, "Invulnerable", state.invulnerable(), "invulnerable");
+		addCheckbox(firstX, y, "Base plate", state.basePlate(), Action.BASE_PLATE);
+		addCheckbox(secondX, y, "Show arms", state.arms(), Action.ARMS);
+		addCheckbox(firstX, y + 30, "Small stand", state.small(), Action.SMALL);
+		addCheckbox(secondX, y + 30, "Gravity", state.gravity(), Action.GRAVITY);
+		addCheckbox(firstX, y + 60, "Visible", state.visible(), Action.VISIBLE);
+		addCheckbox(secondX, y + 60, "Show name", state.nameVisible(), Action.NAME_VISIBLE);
+		addCheckbox(firstX, y + 90, "Owner locked", state.locked(), Action.LOCK);
+		addCheckbox(secondX, y + 90, "Invulnerable", state.invulnerable(), Action.INVULNERABLE);
 	}
 
 	private void buildPoseTab() {
@@ -120,7 +116,7 @@ public final class ArmorStandEditorScreen extends Screen {
 
 	private void buildAngleControls() {
 		int rowY = top + 78;
-		for (int part = 0; part < PART_NAMES.length; part++) {
+		for (int part = 0; part < BodyPart.values().length; part++) {
 			int partIndex = part;
 			int sideX = part < 3 ? left : right;
 			int y = rowY + (part % 3) * 47 + 17;
@@ -129,27 +125,27 @@ public final class ArmorStandEditorScreen extends Screen {
 				int axisIndex = axis;
 				String axisName = "XYZ".substring(axis, axis + 1);
 				addButton(sideX + 8 + axis * buttonWidth * 2, y, buttonWidth - 2, 20, "−" + axisName,
-						() -> send("adjust", partIndex, axisIndex, -angleStep));
+						() -> send(Action.ADJUST, partIndex, axisIndex, -angleStep));
 				addButton(sideX + 8 + axis * buttonWidth * 2 + buttonWidth, y, buttonWidth - 2, 20, "+" + axisName,
-						() -> send("adjust", partIndex, axisIndex, angleStep));
+						() -> send(Action.ADJUST, partIndex, axisIndex, angleStep));
 			}
-			addButton(sideX + 8 + buttonWidth * 6, y, buttonWidth, 20, "↺", () -> send("reset_part", partIndex, 0, 0));
+			addButton(sideX + 8 + buttonWidth * 6, y, buttonWidth, 20, "↺", () -> send(Action.RESET_PART, partIndex, 0, 0));
 		}
 		addButton(right + sideWidth - 105, top + 55, 95, 18, "Step: " + degree(angleStep), () -> {
-			angleStep = angleStep == 1 ? 5 : angleStep == 5 ? 15 : angleStep == 15 ? 45 : 1;
+			angleStep = ArmorStandActions.nextAngleStep(angleStep);
 			rebuildWidgets();
 		});
 	}
 
 	private void buildPointingControls() {
 		int rowY = top + 82;
-		for (int part = 0; part < PART_NAMES.length; part++) {
+		for (int part = 0; part < BodyPart.values().length; part++) {
 			int partIndex = part;
 			int sideX = part < 3 ? left : right;
 			int y = rowY + (part % 3) * 47 + 17;
 			int buttonWidth = (sideWidth - 22) / 2;
-			addButton(sideX + 8, y, buttonWidth, 20, "Point at eyes", () -> send("point", partIndex, 1, 0));
-			addButton(sideX + 12 + buttonWidth, y, buttonWidth, 20, "Point at feet", () -> send("point", partIndex, 0, 0));
+			addButton(sideX + 8, y, buttonWidth, 20, "Point at eyes", () -> send(Action.POINT, partIndex, 1, 0));
+			addButton(sideX + 12 + buttonWidth, y, buttonWidth, 20, "Point at feet", () -> send(Action.POINT, partIndex, 0, 0));
 		}
 	}
 
@@ -163,19 +159,19 @@ public final class ArmorStandEditorScreen extends Screen {
 			int buttonWidth = (sideWidth - 22) / 6;
 			for (int i = 0; i < amounts.length; i++) {
 				double amount = amounts[i];
-				addButton(sideX + 8 + i * buttonWidth, y, buttonWidth - 2, 22, amountNames[i], () -> send("move", axisIndex, 0, amount));
+				addButton(sideX + 8 + i * buttonWidth, y, buttonWidth - 2, 22, amountNames[i], () -> send(Action.MOVE, axisIndex, 0, amount));
 			}
 		}
 		int yawY = top + 137;
 		int yawWidth = (sideWidth - 22) / 4;
-		addButton(right + 8, yawY, yawWidth, 22, "−45°", () -> send("rotate", 0, 0, -45));
-		addButton(right + 10 + yawWidth, yawY, yawWidth, 22, "−" + degree(angleStep), () -> send("rotate", 0, 0, -angleStep));
-		addButton(right + 12 + yawWidth * 2, yawY, yawWidth, 22, "+" + degree(angleStep), () -> send("rotate", 0, 0, angleStep));
-		addButton(right + 14 + yawWidth * 3, yawY, yawWidth, 22, "+45°", () -> send("rotate", 0, 0, 45));
-		addButton(right + 8, top + 170, (sideWidth - 20) / 2, 22, "Face me", () -> send("face_player", 0, 0, 0));
-		addButton(right + 12 + (sideWidth - 20) / 2, top + 170, (sideWidth - 20) / 2, 22, "Center", () -> send("center", 0, 0, 0));
+		addButton(right + 8, yawY, yawWidth, 22, "−45°", () -> send(Action.ROTATE, 0, 0, -45));
+		addButton(right + 10 + yawWidth, yawY, yawWidth, 22, "−" + degree(angleStep), () -> send(Action.ROTATE, 0, 0, -angleStep));
+		addButton(right + 12 + yawWidth * 2, yawY, yawWidth, 22, "+" + degree(angleStep), () -> send(Action.ROTATE, 0, 0, angleStep));
+		addButton(right + 14 + yawWidth * 3, yawY, yawWidth, 22, "+45°", () -> send(Action.ROTATE, 0, 0, 45));
+		addButton(right + 8, top + 170, (sideWidth - 20) / 2, 22, "Face me", () -> send(Action.FACE_PLAYER, 0, 0, 0));
+		addButton(right + 12 + (sideWidth - 20) / 2, top + 170, (sideWidth - 20) / 2, 22, "Center", () -> send(Action.CENTER, 0, 0, 0));
 		addButton(right + sideWidth - 105, top + 55, 95, 18, "Step: " + degree(angleStep), () -> {
-			angleStep = angleStep == 1 ? 5 : angleStep == 5 ? 15 : angleStep == 15 ? 45 : 1;
+			angleStep = ArmorStandActions.nextAngleStep(angleStep);
 			rebuildWidgets();
 		});
 	}
@@ -184,15 +180,15 @@ public final class ArmorStandEditorScreen extends Screen {
 		int columns = 2;
 		int gap = 5;
 		int buttonWidth = (sideWidth - 24 - gap) / columns;
-		for (int i = 0; i < PRESET_NAMES.length; i++) {
+		for (int i = 0; i < ArmorStandActions.PRESETS.size(); i++) {
 			int preset = i;
 			int local = i % 10;
 			int sideX = i < 10 ? left : right;
 			int x = sideX + 12 + (local % columns) * (buttonWidth + gap);
 			int y = top + 62 + (local / columns) * 30;
-			addButton(x, y, buttonWidth, 24, PRESET_NAMES[i], () -> send("preset", preset, 0, 0));
+			addButton(x, y, buttonWidth, 24, ArmorStandActions.PRESETS.get(i).name(), () -> send(Action.PRESET, preset, 0, 0));
 		}
-		addButton(right + sideWidth / 2 - 58, top + 207, 116, 22, "Random pose", () -> send("random", 0, 0, 0));
+		addButton(right + sideWidth / 2 - 58, top + 207, 116, 22, "Random pose", () -> send(Action.RANDOM, 0, 0, 0));
 	}
 
 	private void buildToolsTab() {
@@ -200,19 +196,19 @@ public final class ArmorStandEditorScreen extends Screen {
 		int x2 = right + 18;
 		int w = sideWidth - 36;
 		int y = top + 69;
-		addButton(x1, y, w, 24, "Copy pose", () -> send("copy", 0, 0, 0));
-		addButton(x2, y, w, 24, "Paste pose", () -> send("paste", 0, 0, 0));
-		addButton(x1, y + 32, w, 24, "Reset pose", () -> send("reset_pose", 0, 0, 0));
-		addButton(x2, y + 32, w, 24, "Flip whole pose", () -> send("flip", 0, 0, 0));
-		addButton(x1, y + 64, w, 24, "Swap hands", () -> send("swap_hands", 0, 0, 0));
-		addButton(x2, y + 64, w, 24, "Swap hand / head", () -> send("swap_head", 0, 0, 0));
-		addButton(x1, y + 96, w, 24, "Mirror left arm → right", () -> send("mirror", 2, 3, 0));
-		addButton(x2, y + 96, w, 24, "Mirror right arm → left", () -> send("mirror", 3, 2, 0));
-		addButton(x1, y + 128, w, 24, "Mirror left leg → right", () -> send("mirror", 4, 5, 0));
-		addButton(x2, y + 128, w, 24, "Mirror right leg → left", () -> send("mirror", 5, 4, 0));
+		addButton(x1, y, w, 24, "Copy pose", () -> send(Action.COPY, 0, 0, 0));
+		addButton(x2, y, w, 24, "Paste pose", () -> send(Action.PASTE, 0, 0, 0));
+		addButton(x1, y + 32, w, 24, "Reset pose", () -> send(Action.RESET_POSE, 0, 0, 0));
+		addButton(x2, y + 32, w, 24, "Flip whole pose", () -> send(Action.FLIP, 0, 0, 0));
+		addButton(x1, y + 64, w, 24, "Swap hands", () -> send(Action.SWAP_HANDS, 0, 0, 0));
+		addButton(x2, y + 64, w, 24, "Swap hand / head", () -> send(Action.SWAP_HEAD, 0, 0, 0));
+		addButton(x1, y + 96, w, 24, "Mirror left arm → right", () -> send(Action.MIRROR, 2, 3, 0));
+		addButton(x2, y + 96, w, 24, "Mirror right arm → left", () -> send(Action.MIRROR, 3, 2, 0));
+		addButton(x1, y + 128, w, 24, "Mirror left leg → right", () -> send(Action.MIRROR, 4, 5, 0));
+		addButton(x2, y + 128, w, 24, "Mirror right leg → left", () -> send(Action.MIRROR, 5, 4, 0));
 	}
 
-	private void addCheckbox(int x, int y, String label, boolean checked, String action) {
+	private void addCheckbox(int x, int y, String label, boolean checked, Action action) {
 		addRenderableWidget(Checkbox.builder(Component.literal(label), font)
 				.pos(x, y).selected(checked).maxWidth(sideWidth - 38)
 				.onValueChange((checkbox, value) -> send(action, 0, 0, 0)).build());
@@ -223,7 +219,7 @@ public final class ArmorStandEditorScreen extends Screen {
 				.bounds(x, y, width, height).build());
 	}
 
-	private void send(String action, int first, int second, double value) {
+	private void send(Action action, int first, int second, double value) {
 		ClientPlayNetworking.send(new ActionPayload(entityId, action, first, second, value));
 	}
 
@@ -239,10 +235,10 @@ public final class ArmorStandEditorScreen extends Screen {
 		graphics.outline(right, top, sideWidth, panelHeight, 0xFF777777);
 		graphics.centeredText(font, title, left + sideWidth / 2, top + 10, 0xFFFFFFFF);
 		if (tab == 1) {
-			for (int part = 0; part < PART_NAMES.length; part++) {
+			for (int part = 0; part < BodyPart.values().length; part++) {
 				int sideX = part < 3 ? left : right;
 				int y = top + 78 + (part % 3) * 47;
-				graphics.text(font, PART_NAMES[part], sideX + 10, y + 5, 0xFFE0E0E0);
+				graphics.text(font, BodyPart.values()[part].label(), sideX + 10, y + 5, 0xFFE0E0E0);
 			}
 		}
 		if (tab == 2) {

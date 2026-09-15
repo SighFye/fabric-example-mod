@@ -17,8 +17,7 @@ public final class ArmorStandModule {
 	public static void initialize() {
 		UseEntityCallback.EVENT.register((player, level, hand, entity, hitResult) -> {
 			if (!level.isClientSide() && entity instanceof ArmorStand armorStand
-					&& ArmorStandMenu.isLocked(armorStand) && !ArmorStandMenu.isOwner(armorStand, player.getUUID())) {
-				player.sendSystemMessage(Component.literal("That armor stand is locked."));
+					&& ArmorStandActions.rejectLockedInteraction(player, armorStand)) {
 				return InteractionResult.FAIL;
 			}
 
@@ -44,8 +43,7 @@ public final class ArmorStandModule {
 
 		AttackEntityCallback.EVENT.register((player, level, hand, entity, hitResult) -> {
 			if (!level.isClientSide() && entity instanceof ArmorStand armorStand
-					&& ArmorStandMenu.isLocked(armorStand) && !ArmorStandMenu.isOwner(armorStand, player.getUUID())) {
-				player.sendSystemMessage(Component.literal("That armor stand is locked."));
+					&& ArmorStandActions.rejectLockedInteraction(player, armorStand)) {
 				return InteractionResult.FAIL;
 			}
 			return InteractionResult.PASS;

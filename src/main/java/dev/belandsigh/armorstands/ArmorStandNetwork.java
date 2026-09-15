@@ -1,5 +1,7 @@
 package dev.belandsigh.armorstands;
 
+import dev.belandsigh.BelAndSighMod;
+import dev.belandsigh.armorstands.ArmorStandActions.Action;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -23,13 +25,12 @@ public final class ArmorStandNetwork {
 			ServerPlayer player = context.player();
 			Entity entity = player.level().getEntity(payload.entityId());
 			if (!(entity instanceof ArmorStand stand)
-					|| !stand.isAlive()
-					|| stand.distanceToSqr(player) > 64.0
-					|| (ArmorStandMenu.isLocked(stand) && !ArmorStandMenu.isOwner(stand, player.getUUID()))) {
+					|| !ArmorStandActions.isValidTarget(player, stand)
+					|| ArmorStandActions.isLockedByOther(player, stand)) {
 				return;
 			}
 
-			ArmorStandMenu.applyNetworkAction(player, stand, payload);
+			ArmorStandActions.apply(player, stand, payload.action(), payload.first(), payload.second(), payload.value());
 			ServerPlayNetworking.send(player, StatePayload.from(stand));
 		});
 	}
@@ -38,20 +39,20 @@ public final class ArmorStandNetwork {
 		ServerPlayNetworking.send(player, OpenPayload.from(stand));
 	}
 
-	public record ActionPayload(int entityId, String action, int first, int second, double value)
+	public record ActionPayload(int entityId, Action action, int first, int second, double value)
 			implements CustomPacketPayload {
 		public static final Type<ActionPayload> TYPE = new Type<>(
-				Identifier.fromNamespaceAndPath("belandsigh", "armor_stand_action"));
+				Identifier.fromNamespaceAndPath(BelAndSighMod.MOD_ID, "armor_stand_action"));
 		public static final StreamCodec<RegistryFriendlyByteBuf, ActionPayload> CODEC =
 				CustomPacketPayload.codec(ActionPayload::write, ActionPayload::new);
 
 		private ActionPayload(RegistryFriendlyByteBuf buffer) {
-			this(buffer.readVarInt(), buffer.readUtf(32), buffer.readVarInt(), buffer.readVarInt(), buffer.readDouble());
+			this(buffer.readVarInt(), Action.fromWireName(buffer.readUtf(32)), buffer.readVarInt(), buffer.readVarInt(), buffer.readDouble());
 		}
 
 		private void write(RegistryFriendlyByteBuf buffer) {
 			buffer.writeVarInt(entityId);
-			buffer.writeUtf(action, 32);
+			buffer.writeUtf(action.wireName(), 32);
 			buffer.writeVarInt(first);
 			buffer.writeVarInt(second);
 			buffer.writeDouble(value);
@@ -65,7 +66,7 @@ public final class ArmorStandNetwork {
 
 	public record OpenPayload(int entityId, StatePayload state) implements CustomPacketPayload {
 		public static final Type<OpenPayload> TYPE = new Type<>(
-				Identifier.fromNamespaceAndPath("belandsigh", "open_armor_stand"));
+				Identifier.fromNamespaceAndPath(BelAndSighMod.MOD_ID, "open_armor_stand"));
 		public static final StreamCodec<RegistryFriendlyByteBuf, OpenPayload> CODEC =
 				CustomPacketPayload.codec(OpenPayload::write, OpenPayload::new);
 
@@ -91,7 +92,7 @@ public final class ArmorStandNetwork {
 	public record StatePayload(boolean basePlate, boolean arms, boolean small, boolean gravity,
 			boolean visible, boolean nameVisible, boolean locked, boolean invulnerable) implements CustomPacketPayload {
 		public static final Type<StatePayload> TYPE = new Type<>(
-				Identifier.fromNamespaceAndPath("belandsigh", "armor_stand_state"));
+				Identifier.fromNamespaceAndPath(BelAndSighMod.MOD_ID, "armor_stand_state"));
 		public static final StreamCodec<RegistryFriendlyByteBuf, StatePayload> CODEC =
 				CustomPacketPayload.codec(StatePayload::write, StatePayload::new);
 
@@ -113,7 +114,7 @@ public final class ArmorStandNetwork {
 
 		public static StatePayload from(ArmorStand stand) {
 			return new StatePayload(stand.showBasePlate(), stand.showArms(), stand.isSmall(), !stand.isNoGravity(),
-					!stand.isInvisible(), stand.isCustomNameVisible(), ArmorStandMenu.isLocked(stand), stand.isInvulnerable());
+					!stand.isInvisible(), stand.isCustomNameVisible(), ArmorStandActions.isLocked(stand), stand.isInvulnerable());
 		}
 
 		@Override
