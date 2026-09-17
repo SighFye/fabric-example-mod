@@ -15,6 +15,7 @@
 		,"ServerPlayerDurabilityPingMixin"
 	],
 	"client": [
+		"AbstractContainerScreenAccessor",
 		"InventoryScreenMixin"
 	],
 	"injectors": {
