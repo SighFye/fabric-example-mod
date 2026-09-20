@@ -5,7 +5,10 @@ import dev.belandsigh.armorstands.ArmorStandNetwork.StatePayload;
 import dev.belandsigh.mounts.MountNetworking.ManagementDataPayload;
 import dev.belandsigh.mounts.MountNetworking.SelectionStatePayload;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 
 public final class BelAndSighClient implements ClientModInitializer {
 	@Override
@@ -18,5 +21,14 @@ public final class BelAndSighClient implements ClientModInitializer {
 				MountManagementScreen.updateManagementData(payload));
 		ClientPlayNetworking.registerGlobalReceiver(SelectionStatePayload.TYPE, (payload, context) ->
 				MountManagementScreen.updateSelections(payload));
+
+		ItemTooltipCallback.EVENT.register((stack, context, flag, lines) -> {
+			if (!stack.isDamageableItem()) {
+				return;
+			}
+			int remaining = stack.getMaxDamage() - stack.getDamageValue();
+			lines.add(Component.translatable("tooltip.belandsigh.durability", remaining, stack.getMaxDamage())
+				.withStyle(ChatFormatting.GRAY));
+		});
 	}
 }

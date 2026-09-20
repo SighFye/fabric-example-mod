@@ -10,13 +10,15 @@
 		"LeavesBlockMixin",
 		"EntityMountBindingMixin",
 		"NetherPortalBlockMixin",
+		"PlayerDeathDropMixin",
 		"PortalShapeMixin"
 		,"ServerPlayerMountSelectionMixin"
 		,"ServerPlayerDurabilityPingMixin"
 	],
 	"client": [
 		"AbstractContainerScreenAccessor",
-		"InventoryScreenMixin"
+		"InventoryScreenMixin",
+		"ItemDurabilityDecorationMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

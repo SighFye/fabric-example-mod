@@ -26,6 +26,7 @@ import java.util.UUID;
 
 public final class DurabilityPingModule {
 	private static final int COOLDOWN_TICKS = 60;
+	private static final int[] THRESHOLDS = {100, 50, 25, 10};
 	private static final Map<UUID, PlayerState> STATES = new HashMap<>();
 	private static final EquipmentSlot[] SLOTS = {
 		EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND,
@@ -73,21 +74,42 @@ public final class DurabilityPingModule {
 			Snapshot current = Snapshot.of(stack);
 			state.slots[index] = current;
 
-			if (previous == null || current == null || previous.item != current.item || current.damage <= previous.damage) {
+			if (previous == null || current == null || previous.item != current.item) {
 				continue;
 			}
-			int remaining = stack.getMaxDamage() - stack.getDamageValue();
-			if (remaining < 1 || remaining * 10 > stack.getMaxDamage()) {
+
+			int maxDamage = stack.getMaxDamage();
+			int remaining = maxDamage - current.damage;
+			int previousRemaining = maxDamage - previous.damage;
+			if (remaining >= previousRemaining || remaining < 1) {
 				continue;
 			}
 
 			boolean hand = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
-			if (hand && preferences.belandsigh$handPingsEnabled() && state.handCooldown == 0) {
+			boolean enabled = hand ? preferences.belandsigh$handPingsEnabled() : preferences.belandsigh$armorPingsEnabled();
+			if (!enabled) {
+				continue;
+			}
+
+			boolean crossedThreshold = false;
+			for (int threshold : THRESHOLDS) {
+				if (previousRemaining > threshold && remaining <= threshold) {
+					crossedThreshold = true;
+					break;
+				}
+			}
+
+			if (crossedThreshold) {
+				boolean onCooldown = hand ? state.handCooldown > 0 : state.armorCooldown > 0;
+				if (onCooldown) {
+					continue;
+				}
 				ping(player, stack, remaining, preferences);
-				state.handCooldown = COOLDOWN_TICKS;
-			} else if (!hand && preferences.belandsigh$armorPingsEnabled() && state.armorCooldown == 0) {
-				ping(player, stack, remaining, preferences);
-				state.armorCooldown = COOLDOWN_TICKS;
+				if (hand) {
+					state.handCooldown = COOLDOWN_TICKS;
+				} else {
+					state.armorCooldown = COOLDOWN_TICKS;
+				}
 			}
 		}
 	}

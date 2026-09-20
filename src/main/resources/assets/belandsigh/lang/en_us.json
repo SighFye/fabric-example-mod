@@ -41,4 +41,5 @@
   ,"screen.belandsigh.mount_management.previous": "Previous"
   ,"screen.belandsigh.mount_management.select": "Select"
   ,"screen.belandsigh.mount_management.unbind": "Unbind"
+  ,"tooltip.belandsigh.durability": "Durability: %s / %s"
 }
