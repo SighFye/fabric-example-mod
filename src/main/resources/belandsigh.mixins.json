@@ -8,10 +8,13 @@
 		"BaseFireBlockMixin",
 		"CamelTamingMixin",
 		"LeavesBlockMixin",
+		"ServerLevelAddEntityMixin",
 		"EntityMountBindingMixin",
+		"ItemEntityMergeMixin",
 		"NetherPortalBlockMixin",
 		"PlayerDeathDropMixin",
-		"PortalShapeMixin"
+		"PortalShapeMixin",
+		"ServerPlayerDeathMixin"
 		,"ServerPlayerMountSelectionMixin"
 		,"ServerPlayerDurabilityPingMixin"
 	],
