@@ -46,8 +46,10 @@ conversion and retains normal block placement behavior.
 ## Fast Leaf Decay
 
 Naturally generated leaves decay rapidly after losing their supporting logs.
-The implementation uses Minecraft's existing scheduled leaf updates and normal
-leaf decay behavior, so loot tables and the `doTileDrops` gamerule are respected.
+Each unsupported leaf waits a random 1–25 ticks, so canopies thin out one leaf
+at a time. At most 64 leaves decay per dimension each tick, so felling a large
+forest spreads the work out instead of spiking the server. Decay itself uses vanilla leaf behavior, so loot tables and the
+`doTileDrops` gamerule are respected.
 Player-placed leaves remain protected by their vanilla `persistent` block state.
 
 ## Custom Nether Portals

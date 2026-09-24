@@ -1,5 +1,6 @@
 package dev.belandsigh.mixin;
 
+import dev.belandsigh.leaves.FastLeafDecayModule;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -12,27 +13,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LeavesBlock.class)
 public abstract class LeavesBlockMixin {
-	private static final float BELANDSIGH_DECAY_CHANCE = 0.075F;
-
 	@Inject(method = "tick", at = @At("TAIL"))
-	private void belandsigh$accelerateDecay(
+	private void belandsigh$queueDecay(
 			BlockState state,
 			ServerLevel level,
 			BlockPos pos,
 			RandomSource random,
 			CallbackInfo ci
 	) {
-		BlockState currentState = level.getBlockState(pos);
-		if (!(currentState.getBlock() instanceof LeavesBlock)
-				|| currentState.getValue(LeavesBlock.PERSISTENT)
-				|| currentState.getValue(LeavesBlock.DISTANCE) != LeavesBlock.DECAY_DISTANCE) {
-			return;
-		}
-
-		if (random.nextFloat() < BELANDSIGH_DECAY_CHANCE) {
-			currentState.randomTick(level, pos, random);
-		} else {
-			level.scheduleTick(pos, currentState.getBlock(), 1);
+		// Vanilla's tick has just recalculated distance, so read the updated state rather than the argument.
+		if (FastLeafDecayModule.isUnsupportedNaturalLeaf(level.getBlockState(pos))) {
+			FastLeafDecayModule.enqueue(level, pos);
 		}
 	}
 }
