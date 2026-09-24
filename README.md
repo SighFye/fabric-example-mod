@@ -70,6 +70,18 @@ Online players are also granted any newly loaded recipes after a successful
 datapack reload. Mini Blocks relies on this module for recipe-book entries and
 ships no discovery advancements of its own.
 
+## Mount Whistle
+
+Use the mount whistle to call your selected mount to a safe spot near you. The
+whistle picks the land, water, or lava mount that suits where you are standing,
+and can recall a mount whose chunk is unloaded, as long as it is in your current
+dimension. Choose a mount for each category in the mount management screen.
+
+You own a mount by taming it, or by being the first player to ride one that
+cannot be tamed. **Camels change from vanilla:** they must be tamed like horses
+(ride them until they stop bucking you off) and are then owned by the player who
+tamed them, instead of being free for anyone to ride.
+
 ## Durability Ping
 
 Damageable items in either hand and equipped armor produce an anvil ping and a

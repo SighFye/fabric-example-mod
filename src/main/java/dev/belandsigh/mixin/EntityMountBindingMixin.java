@@ -2,7 +2,9 @@ package dev.belandsigh.mixin;
 
 import dev.belandsigh.mounts.MountBindingData;
 import dev.belandsigh.mounts.MountBindingService;
+import dev.belandsigh.mounts.MountLocationIndex;
 import net.minecraft.core.UUIDUtil;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.ValueInput;
@@ -37,6 +39,12 @@ public abstract class EntityMountBindingMixin implements MountBindingData {
 		belandsigh$boundOwnerUuid = input.child(BELANDSIGH_MOUNT_DATA)
 			.flatMap(data -> data.read(BELANDSIGH_BOUND_OWNER, UUIDUtil.CODEC))
 			.orElse(null);
+	}
+
+	/** Name tags rename mounts; keep the management screen's catalog current. */
+	@Inject(method = "setCustomName", at = @At("TAIL"))
+	private void belandsigh$refreshMountCatalogName(Component name, CallbackInfo ci) {
+		MountLocationIndex.refresh((Entity) (Object) this);
 	}
 
 	@Inject(method = "startRiding(Lnet/minecraft/world/entity/Entity;ZZ)Z", at = @At("RETURN"))

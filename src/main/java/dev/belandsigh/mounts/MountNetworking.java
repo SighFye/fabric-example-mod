@@ -4,6 +4,7 @@ import dev.belandsigh.BelAndSighMod;
 import dev.belandsigh.mounts.PlayerMountSelectionService.SelectionResult;
 import dev.belandsigh.mounts.MountBindingService.UnbindResult;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -11,13 +12,14 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,6 +27,9 @@ import java.util.UUID;
 public final class MountNetworking {
 	private static final int MAX_MOUNT_SUMMARIES = 512;
 	private static final int MAX_DISPLAY_TEXT_LENGTH = 128;
+	/** Client-triggered management refreshes are limited to one per half second per player. */
+	private static final int MANAGEMENT_REQUEST_COOLDOWN_TICKS = 10;
+	private static final Map<UUID, Long> LAST_MANAGEMENT_REQUEST = new HashMap<>();
 
 	private MountNetworking() {
 	}
@@ -44,8 +49,18 @@ public final class MountNetworking {
 			syncSelections(player);
 		});
 
-		ServerPlayNetworking.registerGlobalReceiver(RequestManagementDataPayload.TYPE, (payload, context) ->
-			syncManagementData(context.player()));
+		ServerPlayNetworking.registerGlobalReceiver(RequestManagementDataPayload.TYPE, (payload, context) -> {
+			ServerPlayer player = context.player();
+			long now = player.level().getGameTime();
+			Long last = LAST_MANAGEMENT_REQUEST.get(player.getUUID());
+			if (last != null && now - last < MANAGEMENT_REQUEST_COOLDOWN_TICKS) {
+				return;
+			}
+			LAST_MANAGEMENT_REQUEST.put(player.getUUID(), now);
+			syncManagementData(player);
+		});
+		ServerPlayConnectionEvents.DISCONNECT.register((handler, server) ->
+			LAST_MANAGEMENT_REQUEST.remove(handler.getPlayer().getUUID()));
 
 		ServerPlayNetworking.registerGlobalReceiver(UnbindMountPayload.TYPE, (payload, context) -> {
 			ServerPlayer player = context.player();
@@ -76,14 +91,7 @@ public final class MountNetworking {
 	}
 
 	private static List<MountSummary> collectOwnedMounts(ServerPlayer player) {
-		// Refresh catalog metadata for everything currently loaded before reading
-		// the persistent list, so newly tamed or renamed mounts appear immediately.
-		for (ServerLevel level : player.level().getServer().getAllLevels()) {
-			for (Entity entity : level.getAllEntities()) {
-				MountLocationIndex.record(entity, level);
-			}
-		}
-
+		// The catalog is kept current by load/unload, taming, renaming, binding and recall hooks, so no entity scan.
 		List<MountSummary> mounts = new ArrayList<>();
 		for (MountLocationIndex.Location mount : MountLocationIndex.catalogForOwner(
 				player.level().getServer(), player.getUUID())) {

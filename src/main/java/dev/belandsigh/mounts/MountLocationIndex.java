@@ -83,6 +83,17 @@ public final class MountLocationIndex extends SavedData {
 		}
 	}
 
+	/**
+	 * Re-records a loaded mount after its owner or name changes, so the management screen stays current without
+	 * scanning every entity. Ignores entities still being deserialized (not yet in their level).
+	 */
+	public static void refresh(Entity entity) {
+		if (entity.level() instanceof ServerLevel level && MountCategoryService.isEligibleMount(entity)
+				&& level.getEntity(entity.getUUID()) == entity) {
+			record(entity, level);
+		}
+	}
+
 	public static void remove(Entity entity, ServerLevel level) {
 		if (!MountCategoryService.isEligibleMount(entity)) {
 			return;

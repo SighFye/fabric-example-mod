@@ -17,14 +17,17 @@ import java.util.List;
 
 /** Searches a small area around the caller using the recalled entity's real bounding box. */
 public final class SafeMountPositionFinder {
+	/** The search pattern never changes, so build it once rather than on every recall. */
+	private static final List<Offset> HORIZONTAL_OFFSETS =
+		horizontalOffsets(MountWhistleConstants.SAFE_ARRIVAL_HORIZONTAL_RADIUS);
+	private static final int[] VERTICAL_OFFSETS = verticalOffsets(MountWhistleConstants.SAFE_ARRIVAL_VERTICAL_RADIUS);
+
 	private SafeMountPositionFinder() {
 	}
 
 	public static Optional<Vec3> find(ServerLevel level, Entity mount, BlockPos origin, MountCategory category) {
-		int radius = MountWhistleConstants.SAFE_ARRIVAL_HORIZONTAL_RADIUS;
-		int verticalRadius = MountWhistleConstants.SAFE_ARRIVAL_VERTICAL_RADIUS;
-		for (Offset offset : horizontalOffsets(radius)) {
-			for (int y : verticalOffsets(verticalRadius)) {
+		for (Offset offset : HORIZONTAL_OFFSETS) {
+			for (int y : VERTICAL_OFFSETS) {
 				Vec3 destination = new Vec3(origin.getX() + offset.x() + 0.5D,
 					origin.getY() + y, origin.getZ() + offset.z() + 0.5D);
 				if (isSafe(level, mount, destination, category)) {

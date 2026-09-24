@@ -18,6 +18,7 @@ import java.util.function.Predicate;
 /** The single source of truth for Mount Whistle eligibility and categories. */
 public final class MountCategoryService {
 	private static final Map<MountCategory, TagKey<EntityType<?>>> CATEGORY_TAGS = createTags();
+	private static final MountCategory[] CATEGORIES = MountCategory.values();
 
 	private MountCategoryService() {
 	}
@@ -26,8 +27,9 @@ public final class MountCategoryService {
 		return categoriesMatching(category -> isInCategory(entity, category));
 	}
 
+	/** Allocation-free: this runs for every entity load and unload on the server. */
 	public static boolean isEligibleMount(Entity entity) {
-		return !getMountCategories(entity).isEmpty();
+		return categoryMask(entity) != 0;
 	}
 
 	public static boolean supports(Entity entity, MountCategory category) {
@@ -36,8 +38,10 @@ public final class MountCategoryService {
 
 	public static int categoryMask(Entity entity) {
 		int mask = 0;
-		for (MountCategory category : getMountCategories(entity)) {
-			mask |= 1 << category.ordinal();
+		for (MountCategory category : CATEGORIES) {
+			if (isInCategory(entity, category)) {
+				mask |= 1 << category.ordinal();
+			}
 		}
 		return mask;
 	}
