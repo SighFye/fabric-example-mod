@@ -56,8 +56,10 @@ Player-placed leaves remain protected by their vanilla `persistent` block state.
 
 Nether portals can use non-rectangular frames and any mixture of obsidian and
 crying obsidian. Vanilla handles rectangular portals directly; irregular frames
-use a bounded native flood-fill during activation and validation. Frames require
-10 to 84 edge blocks. Frame blocks are controlled by the
+use a bounded flood-fill during activation and validation. Fire that isn't
+enclosed by frame blocks is rejected after a few block checks, and breaking an
+irregular portal validates it only once however many blocks it has. Frames
+require 10 to 84 edge blocks. Frame blocks are controlled by the
 `belandsigh:nether_portal_frame_blocks` block tag so datapacks and other mods can
 extend the allowed materials.
 
