@@ -10,6 +10,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Rotations;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.permissions.Permissions;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
@@ -106,7 +107,24 @@ public final class ArmorStandActions {
 	}
 
 	public static boolean isLockedByOther(Player player, ArmorStand stand) {
-		return isLocked(stand) && !isOwner(stand, player.getUUID());
+		return ArmorStandLocks.isLockedAgainst(isLocked(stand), isOwner(stand, player.getUUID()), canBypassLocks(player));
+	}
+
+	/** Re-checked on every action so a lock applied mid-session also closes out other open editors. */
+	public static boolean canEdit(Player player, ArmorStand stand) {
+		return ArmorStandLocks.canEdit(isValidTarget(player, stand), isLockedByOther(player, stand));
+	}
+
+	private static boolean canBypassLocks(Player player) {
+		return player.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER);
+	}
+
+	public static void clearClipboard(UUID playerId) {
+		CLIPBOARDS.remove(playerId);
+	}
+
+	public static void clearClipboards() {
+		CLIPBOARDS.clear();
 	}
 
 	public static boolean rejectLockedInteraction(Player player, ArmorStand stand) {
@@ -222,7 +240,7 @@ public final class ArmorStandActions {
 
 	private static void toggleLock(ServerPlayer player, ArmorStand stand) {
 		if (isLocked(stand)) {
-			if (!isOwner(stand, player.getUUID())) {
+			if (isLockedByOther(player, stand)) {
 				player.sendSystemMessage(Component.literal("Only the owner can unlock this stand.").withStyle(ChatFormatting.RED));
 				return;
 			}

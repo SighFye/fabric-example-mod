@@ -69,7 +69,7 @@ public final class ArmorStandMenu extends ChestMenu {
 	}
 
 	private boolean validTarget() {
-		return ArmorStandActions.isValidTarget(player, stand);
+		return ArmorStandActions.canEdit(player, stand);
 	}
 
 	private void render() {

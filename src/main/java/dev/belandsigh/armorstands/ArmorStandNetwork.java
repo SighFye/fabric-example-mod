@@ -25,8 +25,7 @@ public final class ArmorStandNetwork {
 			ServerPlayer player = context.player();
 			Entity entity = player.level().getEntity(payload.entityId());
 			if (!(entity instanceof ArmorStand stand)
-					|| !ArmorStandActions.isValidTarget(player, stand)
-					|| ArmorStandActions.isLockedByOther(player, stand)) {
+					|| !ArmorStandActions.canEdit(player, stand)) {
 				return;
 			}
 

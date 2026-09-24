@@ -1,7 +1,9 @@
 package dev.belandsigh.armorstands;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -48,5 +50,9 @@ public final class ArmorStandModule {
 			}
 			return InteractionResult.PASS;
 		});
+
+		ServerPlayConnectionEvents.DISCONNECT.register((handler, server) ->
+				ArmorStandActions.clearClipboard(handler.getPlayer().getUUID()));
+		ServerLifecycleEvents.SERVER_STOPPED.register(server -> ArmorStandActions.clearClipboards());
 	}
 }
