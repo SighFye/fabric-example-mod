@@ -8,4 +8,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface AbstractContainerScreenAccessor {
 	@Accessor("leftPos")
 	int belandsigh$getLeftPos();
+
+	@Accessor("topPos")
+	int belandsigh$getTopPos();
 }

@@ -3,10 +3,13 @@
 	"package": "dev.belandsigh.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
+		"AbstractFurnaceBlockEntityAccessor",
+		"AbstractFurnaceMenuAccessor",
 		"AbstractHorseAccessor",
 		"ArmorStandAccessor",
 		"BaseFireBlockMixin",
 		"CamelTamingMixin",
+		"ContainerMenuButtonMixin",
 		"LeavesBlockMixin",
 		"ServerLevelAddEntityMixin",
 		"EntityMountBindingMixin",
@@ -20,6 +23,7 @@
 	],
 	"client": [
 		"AbstractContainerScreenAccessor",
+		"FurnaceScreenMixin",
 		"InventoryScreenMixin",
 		"ItemDurabilityDecorationMixin"
 	],

@@ -72,6 +72,14 @@ subtitle warning when they reach 10% durability. Hand and armor alerts have
 independent three-second cooldowns. Each player's settings persist with their
 player data and can be changed with `/durabilityping`.
 
+## Furnace XP
+
+Furnaces, blast furnaces, and smokers show their stored experience on a button
+below the result slot. Clicking it releases that experience as orbs at the
+player, exactly as taking from the result slot would, so hopper-fed furnaces
+can be emptied of XP without touching their output. Anyone who can open the
+furnace can collect it.
+
 ## Ender Chest Always Drops
 
 Ender chests always drop themselves when broken, even without Silk Touch.

@@ -2,6 +2,7 @@ package dev.belandsigh.client;
 
 import dev.belandsigh.armorstands.ArmorStandNetwork.OpenPayload;
 import dev.belandsigh.armorstands.ArmorStandNetwork.StatePayload;
+import dev.belandsigh.furnacexp.FurnaceXpModule.StoredXpPayload;
 import dev.belandsigh.mounts.MountNetworking.ManagementDataPayload;
 import dev.belandsigh.mounts.MountNetworking.SelectionStatePayload;
 import net.fabricmc.api.ClientModInitializer;
@@ -21,6 +22,8 @@ public final class BelAndSighClient implements ClientModInitializer {
 				MountManagementScreen.updateManagementData(payload));
 		ClientPlayNetworking.registerGlobalReceiver(SelectionStatePayload.TYPE, (payload, context) ->
 				MountManagementScreen.updateSelections(payload));
+		ClientPlayNetworking.registerGlobalReceiver(StoredXpPayload.TYPE, (payload, context) ->
+				FurnaceXpClientState.update(payload));
 
 		ItemTooltipCallback.EVENT.register((stack, context, flag, lines) -> {
 			if (!stack.isDamageableItem()) {
