@@ -57,6 +57,8 @@ public final class DeathLocationModule {
 	private static final int CHECK_INTERVAL_TICKS = 20;
 	private static final Map<UUID, List<Countdown>> COUNTDOWNS = new HashMap<>();
 	private static final Map<UUID, Integer> DEATH_NUMBERS = new HashMap<>();
+	/** Players whose countdowns changed outside the tick loop (item merges) and still need saving. */
+	private static final Set<UUID> UNSAVED_PLAYERS = new HashSet<>();
 	private static ServerPlayer capturingPlayer;
 	private static ServerLevel capturingLevel;
 	private static BlockPos capturingPos;
@@ -72,6 +74,7 @@ public final class DeathLocationModule {
 				Map.Entry<UUID, List<Countdown>> entry = playerIterator.next();
 				List<Countdown> countdowns = entry.getValue();
 				ServerPlayer player = server.getPlayerList().getPlayer(entry.getKey());
+				boolean changed = UNSAVED_PLAYERS.remove(entry.getKey());
 
 				Iterator<Countdown> countdownIterator = countdowns.iterator();
 				while (countdownIterator.hasNext()) {
@@ -80,6 +83,7 @@ public final class DeathLocationModule {
 					if (level == null) {
 						countdown.bossEvent.removeAllPlayers();
 						countdownIterator.remove();
+						changed = true;
 						continue;
 					}
 
@@ -95,11 +99,12 @@ public final class DeathLocationModule {
 					}
 					countdown.ticksUntilCheck = CHECK_INTERVAL_TICKS;
 
-					countdown.itemIds.removeIf(id -> level.getEntity(id) == null);
+					changed |= countdown.itemIds.removeIf(id -> level.getEntity(id) == null);
 					if (countdown.itemIds.isEmpty()) {
 						BelAndSighMod.LOGGER.info("[death-loc] clearing countdown for {}: all tracked items are gone", entry.getKey());
 						countdown.bossEvent.removeAllPlayers();
 						countdownIterator.remove();
+						changed = true;
 						continue;
 					}
 
@@ -109,12 +114,16 @@ public final class DeathLocationModule {
 				if (countdowns.isEmpty()) {
 					playerIterator.remove();
 				}
-				persist(server, entry.getKey(), countdowns);
+				// Only rewrite saved data when the tracked set actually changed, not every tick.
+				if (changed) {
+					persist(server, entry.getKey(), countdowns);
+				}
 			}
 		});
 		ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
 			COUNTDOWNS.clear();
 			DEATH_NUMBERS.clear();
+			UNSAVED_PLAYERS.clear();
 		});
 		ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
 			List<Countdown> countdowns = COUNTDOWNS.get(handler.getPlayer().getUUID());
@@ -224,10 +233,11 @@ public final class DeathLocationModule {
 	 * survivor, so the countdown follows that entity instead of treating the items as gone. The
 	 * survivor inherits the younger age of the two, so the time estimate stays accurate. */
 	public static void onItemMerged(UUID discardedId, UUID survivorId) {
-		for (List<Countdown> countdowns : COUNTDOWNS.values()) {
-			for (Countdown countdown : countdowns) {
+		for (Map.Entry<UUID, List<Countdown>> entry : COUNTDOWNS.entrySet()) {
+			for (Countdown countdown : entry.getValue()) {
 				if (countdown.itemIds.remove(discardedId)) {
 					countdown.itemIds.add(survivorId);
+					UNSAVED_PLAYERS.add(entry.getKey());
 				}
 			}
 		}
