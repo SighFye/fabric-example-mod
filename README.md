@@ -65,7 +65,8 @@ extend the allowed materials.
 
 Every recipe is added to a player's recipe book when they join the server.
 Online players are also granted any newly loaded recipes after a successful
-datapack reload.
+datapack reload. Mini Blocks relies on this module for recipe-book entries and
+ships no discovery advancements of its own.
 
 ## Durability Ping
 
