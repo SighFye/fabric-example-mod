@@ -87,7 +87,10 @@ furnace can collect it.
 
 ## Ender Chest Always Drops
 
-Ender chests always drop themselves when broken, even without Silk Touch.
+Ender chests always drop themselves when broken, even without Silk Touch, and
+are never destroyed by explosions. The vanilla loot table is swapped in code, so
+a data pack or mod that supplies its own ender chest loot table takes priority,
+and other mods' loot modifications still apply.
 
 ## Mini Blocks
 

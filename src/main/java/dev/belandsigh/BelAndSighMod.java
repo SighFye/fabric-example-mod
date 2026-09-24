@@ -6,6 +6,7 @@ import dev.belandsigh.cauldrons.CauldronConversionModule;
 import dev.belandsigh.customportals.CustomNetherPortalModule;
 import dev.belandsigh.death.DeathLocationModule;
 import dev.belandsigh.durability.DurabilityPingModule;
+import dev.belandsigh.enderchest.EnderChestDropsModule;
 import dev.belandsigh.furnacexp.FurnaceXpModule;
 import dev.belandsigh.leaves.FastLeafDecayModule;
 import dev.belandsigh.mobheads.MoreMobHeadsModule;
@@ -29,6 +30,7 @@ public final class BelAndSighMod implements ModInitializer {
 		CustomNetherPortalModule.initialize();
 		DeathLocationModule.initialize();
 		DurabilityPingModule.initialize();
+		EnderChestDropsModule.initialize();
 		FastLeafDecayModule.initialize();
 		FurnaceXpModule.initialize();
 		MoreMobHeadsModule.initialize();
