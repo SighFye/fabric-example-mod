@@ -12,6 +12,7 @@
 		"ContainerMenuButtonMixin",
 		"LeavesBlockMixin",
 		"ServerLevelAddEntityMixin",
+		"TamableAnimalOwnerMixin",
 		"EntityMountBindingMixin",
 		"ItemEntityMergeMixin",
 		"NetherPortalBlockMixin",

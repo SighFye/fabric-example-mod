@@ -15,9 +15,10 @@ No finding in these documents has been implemented yet.
 | Mini Blocks | Works; data can be reduced | [07-mini-blocks.md](07-mini-blocks.md) |
 | Ender Chest Always Drops | Healthy; compatibility caveat | [08-ender-chest-always-drops.md](08-ender-chest-always-drops.md) |
 | Durability Ping | Needs correctness and allocation fixes | [09-durability-ping.md](09-durability-ping.md) |
-| Better Pet Following | Major performance concern | [10-better-pet-following.md](10-better-pet-following.md) |
+| Better Pet Following | Implemented: every following pet keeps its chunk loaded (not simulated) | [10-better-pet-following.md](10-better-pet-following.md) |
 | Mount Whistle | Good structure; two important faults | [11-mount-whistle.md](11-mount-whistle.md) |
 | Death Location Timer | Release blocker | [12-death-location-timer.md](12-death-location-timer.md) |
+| Furnace XP | Healthy; minor perf and client-state fixes | [13-furnace-xp.md](13-furnace-xp.md) |
 
 ## Suggested discussion order
 
@@ -33,6 +34,7 @@ No finding in these documents has been implemented yet.
 10. Ender Chest Always Drops
 11. Unlock All Recipes
 12. Concrete & Mud Cauldrons
+13. Furnace XP
 
 ## Verification baseline
 

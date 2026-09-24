@@ -9,7 +9,7 @@ import dev.belandsigh.durability.DurabilityPingModule;
 import dev.belandsigh.furnacexp.FurnaceXpModule;
 import dev.belandsigh.mobheads.MoreMobHeadsModule;
 import dev.belandsigh.mounts.MountWhistleModule;
-import dev.belandsigh.pets.PetChunkLoadingModule;
+import dev.belandsigh.pets.PetFollowModule;
 import dev.belandsigh.playerheads.PlayerHeadsModule;
 import dev.belandsigh.recipes.UnlockAllRecipesModule;
 import net.fabricmc.api.ModInitializer;
@@ -31,9 +31,9 @@ public final class BelAndSighMod implements ModInitializer {
 		FurnaceXpModule.initialize();
 		MoreMobHeadsModule.initialize();
 		MountWhistleModule.initialize();
-		PetChunkLoadingModule.initialize();
+		PetFollowModule.initialize();
 		PlayerHeadsModule.initialize();
 		UnlockAllRecipesModule.initialize();
-		LOGGER.info("BelAndSigh initialized (Armor Stands, Cauldron Conversions, Custom Nether Portals, Death Item Location, Durability Ping, Ender Chest Always Drops, Fast Leaf Decay, Furnace XP, Mini Blocks, More Mob Heads, Mount Whistle, Pet Chunk Loading, Player Heads, and Unlock All Recipes modules enabled)");
+		LOGGER.info("BelAndSigh initialized (Armor Stands, Cauldron Conversions, Custom Nether Portals, Death Item Location, Durability Ping, Ender Chest Always Drops, Fast Leaf Decay, Furnace XP, Mini Blocks, More Mob Heads, Mount Whistle, Pet Following, Player Heads, and Unlock All Recipes modules enabled)");
 	}
 }
