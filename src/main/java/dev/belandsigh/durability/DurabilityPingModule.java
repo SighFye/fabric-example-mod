@@ -3,8 +3,6 @@ package dev.belandsigh.durability;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Holder;
@@ -19,15 +17,10 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
-import java.util.UUID;
 
 public final class DurabilityPingModule {
-	private static final int COOLDOWN_TICKS = 60;
-	private static final int[] THRESHOLDS = {100, 50, 25, 10};
-	private static final Map<UUID, PlayerState> STATES = new HashMap<>();
+	public static final int COOLDOWN_TICKS = DurabilityThresholds.COOLDOWN_TICKS;
 	private static final EquipmentSlot[] SLOTS = {
 		EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND,
 		EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET
@@ -37,13 +30,6 @@ public final class DurabilityPingModule {
 	}
 
 	public static void initialize() {
-		ServerTickEvents.END_SERVER_TICK.register(server -> {
-			for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-				checkPlayer(player);
-			}
-		});
-		ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> STATES.remove(handler.getPlayer().getUUID()));
-
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
 			dispatcher.register(Commands.literal("durabilityping")
 				.executes(context -> showSettings(context.getSource().getPlayerOrException()))
@@ -61,57 +47,46 @@ public final class DurabilityPingModule {
 		);
 	}
 
-	private static void checkPlayer(ServerPlayer player) {
-		PlayerState state = STATES.computeIfAbsent(player.getUUID(), ignored -> new PlayerState());
-		if (state.handCooldown > 0) state.handCooldown--;
-		if (state.armorCooldown > 0) state.armorCooldown--;
+	/** Called as a player's item takes durability damage; only the stack actually being damaged is inspected. */
+	public static void onDamage(ServerPlayer player, ItemStack stack, int oldDamage, int newDamage) {
+		int maxDamage = stack.getMaxDamage();
+		if (!DurabilityThresholds.crossed(maxDamage - oldDamage, maxDamage - newDamage)) {
+			return;
+		}
 
+		EquipmentSlot slot = equippedSlot(player, stack);
+		if (slot == null) {
+			return;
+		}
+		boolean hand = slot.getType() == EquipmentSlot.Type.HAND;
 		DurabilityPingPreferences preferences = (DurabilityPingPreferences) player;
-		for (int index = 0; index < SLOTS.length; index++) {
-			EquipmentSlot slot = SLOTS[index];
-			ItemStack stack = player.getItemBySlot(slot);
-			Snapshot previous = state.slots[index];
-			Snapshot current = Snapshot.of(stack);
-			state.slots[index] = current;
+		if (!(hand ? preferences.belandsigh$handPingsEnabled() : preferences.belandsigh$armorPingsEnabled())) {
+			return;
+		}
 
-			if (previous == null || current == null || previous.item != current.item) {
-				continue;
-			}
+		DurabilityPingCooldowns cooldowns = (DurabilityPingCooldowns) player;
+		long now = player.level().getGameTime();
+		long lastPing = hand ? cooldowns.belandsigh$lastHandPing() : cooldowns.belandsigh$lastArmorPing();
+		if (!DurabilityThresholds.offCooldown(now, lastPing)) {
+			return;
+		}
 
-			int maxDamage = stack.getMaxDamage();
-			int remaining = maxDamage - current.damage;
-			int previousRemaining = maxDamage - previous.damage;
-			if (remaining >= previousRemaining || remaining < 1) {
-				continue;
-			}
+		ping(player, stack, maxDamage - newDamage, preferences);
+		if (hand) {
+			cooldowns.belandsigh$setLastHandPing(now);
+		} else {
+			cooldowns.belandsigh$setLastArmorPing(now);
+		}
+	}
 
-			boolean hand = slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND;
-			boolean enabled = hand ? preferences.belandsigh$handPingsEnabled() : preferences.belandsigh$armorPingsEnabled();
-			if (!enabled) {
-				continue;
-			}
-
-			boolean crossedThreshold = false;
-			for (int threshold : THRESHOLDS) {
-				if (previousRemaining > threshold && remaining <= threshold) {
-					crossedThreshold = true;
-					break;
-				}
-			}
-
-			if (crossedThreshold) {
-				boolean onCooldown = hand ? state.handCooldown > 0 : state.armorCooldown > 0;
-				if (onCooldown) {
-					continue;
-				}
-				ping(player, stack, remaining, preferences);
-				if (hand) {
-					state.handCooldown = COOLDOWN_TICKS;
-				} else {
-					state.armorCooldown = COOLDOWN_TICKS;
-				}
+	/** Identity match, so a same-type tool elsewhere in the inventory is never confused with the equipped one. */
+	private static EquipmentSlot equippedSlot(ServerPlayer player, ItemStack stack) {
+		for (EquipmentSlot slot : SLOTS) {
+			if (player.getItemBySlot(slot) == stack) {
+				return slot;
 			}
 		}
+		return null;
 	}
 
 	private static void ping(ServerPlayer player, ItemStack stack, int remaining, DurabilityPingPreferences preferences) {
@@ -203,15 +178,4 @@ public final class DurabilityPingModule {
 		HIDDEN, SUBTITLE, TITLE, CHAT, ACTIONBAR
 	}
 
-	private static final class PlayerState {
-		private final Snapshot[] slots = new Snapshot[SLOTS.length];
-		private int handCooldown;
-		private int armorCooldown;
-	}
-
-	private record Snapshot(net.minecraft.world.item.Item item, int damage) {
-		private static Snapshot of(ItemStack stack) {
-			return stack.isDamageableItem() ? new Snapshot(stack.getItem(), stack.getDamageValue()) : null;
-		}
-	}
 }

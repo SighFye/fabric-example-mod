@@ -15,6 +15,7 @@
 		"TamableAnimalOwnerMixin",
 		"EntityMountBindingMixin",
 		"ItemEntityMergeMixin",
+		"ItemStackDurabilityPingMixin",
 		"NetherPortalBlockMixin",
 		"PlayerDeathDropMixin",
 		"PortalShapeMixin",

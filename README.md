@@ -73,7 +73,8 @@ ships no discovery advancements of its own.
 ## Durability Ping
 
 Damageable items in either hand and equipped armor produce an anvil ping and a
-subtitle warning when they reach 10% durability. Hand and armor alerts have
+subtitle warning when their remaining durability drops to 100, 50, 25, or 10.
+Checks happen only when an item actually takes damage. Hand and armor alerts have
 independent three-second cooldowns. Each player's settings persist with their
 player data and can be changed with `/durabilityping`.
 

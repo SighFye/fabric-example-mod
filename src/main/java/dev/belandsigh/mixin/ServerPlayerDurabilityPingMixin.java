@@ -1,5 +1,6 @@
 package dev.belandsigh.mixin;
 
+import dev.belandsigh.durability.DurabilityPingCooldowns;
 import dev.belandsigh.durability.DurabilityPingModule;
 import dev.belandsigh.durability.DurabilityPingPreferences;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,7 +13,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayer.class)
-public abstract class ServerPlayerDurabilityPingMixin implements DurabilityPingPreferences {
+public abstract class ServerPlayerDurabilityPingMixin implements DurabilityPingPreferences, DurabilityPingCooldowns {
+	// Cooldowns are session-only (not saved); starting a full cooldown in the past lets the first ping through.
+	@Unique private long belandsigh$lastHandPing = -DurabilityPingModule.COOLDOWN_TICKS;
+	@Unique private long belandsigh$lastArmorPing = -DurabilityPingModule.COOLDOWN_TICKS;
 	@Unique private boolean belandsigh$handPings = true;
 	@Unique private boolean belandsigh$armorPings = true;
 	@Unique private boolean belandsigh$pingSound = true;
@@ -49,4 +53,8 @@ public abstract class ServerPlayerDurabilityPingMixin implements DurabilityPingP
 	@Override public void belandsigh$setPingSoundEnabled(boolean enabled) { belandsigh$pingSound = enabled; }
 	@Override public DurabilityPingModule.Display belandsigh$pingDisplay() { return belandsigh$display; }
 	@Override public void belandsigh$setPingDisplay(DurabilityPingModule.Display display) { belandsigh$display = display; }
+	@Override public long belandsigh$lastHandPing() { return belandsigh$lastHandPing; }
+	@Override public void belandsigh$setLastHandPing(long gameTime) { belandsigh$lastHandPing = gameTime; }
+	@Override public long belandsigh$lastArmorPing() { return belandsigh$lastArmorPing; }
+	@Override public void belandsigh$setLastArmorPing(long gameTime) { belandsigh$lastArmorPing = gameTime; }
 }
