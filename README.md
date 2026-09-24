@@ -40,7 +40,7 @@ v2.8.23 by Stick God and the Vanilla Tweaks team.
 
 Right-click a water cauldron while holding concrete powder to harden the entire
 held stack into concrete. Dirt, coarse dirt, and rooted dirt similarly convert
-into mud. The conversion does not consume water. Sneak-right-click bypasses the
+into mud. Each conversion consumes one level of water. Sneak-right-click bypasses the
 conversion and retains normal block placement behavior.
 
 ## Fast Leaf Decay

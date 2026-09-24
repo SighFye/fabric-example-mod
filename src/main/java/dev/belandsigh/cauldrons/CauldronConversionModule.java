@@ -14,6 +14,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LayeredCauldronBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 public final class CauldronConversionModule {
 	private static final Map<Item, Item> CONVERSIONS = createConversions();
@@ -32,10 +34,14 @@ public final class CauldronConversionModule {
 		return Map.copyOf(conversions);
 	}
 
+	static Item conversionFor(Item item) {
+		return CONVERSIONS.get(item);
+	}
+
 	public static void initialize() {
 		UseBlockCallback.EVENT.register((player, level, hand, hitResult) -> {
-			if (player.isShiftKeyDown() || player.isSpectator()
-					|| !level.getBlockState(hitResult.getBlockPos()).is(Blocks.WATER_CAULDRON)) {
+			BlockState cauldron = level.getBlockState(hitResult.getBlockPos());
+			if (player.isShiftKeyDown() || player.isSpectator() || !cauldron.is(Blocks.WATER_CAULDRON)) {
 				return InteractionResult.PASS;
 			}
 
@@ -46,7 +52,10 @@ public final class CauldronConversionModule {
 			}
 
 			if (level instanceof ServerLevel serverLevel) {
+				// transmuteCopy intentionally keeps the stack's components (custom name, lore, etc.).
 				player.setItemInHand(hand, heldStack.transmuteCopy(convertedItem, heldStack.getCount()));
+				// Each conversion consumes one water level, emptying the cauldron after the last.
+				LayeredCauldronBlock.lowerFillLevel(cauldron, level, hitResult.getBlockPos());
 				serverLevel.playSound(null, hitResult.getBlockPos(), SoundEvents.GENERIC_SPLASH,
 						SoundSource.BLOCKS, 1.0F, 1.0F);
 				serverLevel.sendParticles(ParticleTypes.SPLASH,
