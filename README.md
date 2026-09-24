@@ -110,4 +110,5 @@ online or to have joined the server before.
 Supported mobs have a chance to drop their custom head when killed by a player.
 Drop rates vary by mob and Looting increases the chance. Variant-aware mobs,
 including cats, cows, frogs, sheep, villagers, and wolves, drop the matching
-variant head. Existing vanilla loot remains unchanged.
+variant head. Existing vanilla loot remains unchanged, and heads are still added
+when another data pack or mod replaces a mob's loot table.

@@ -12,7 +12,8 @@ import java.util.Set;
 
 public final class MoreMobHeadsModule {
 	private static final String ENTITY_TABLE_PREFIX = "entities/";
-	private static final Set<String> SUPPORTED_MOBS = Set.of(
+	// Must match the top-level files in data/more_mob_heads/loot_table/entities/ (enforced by MoreMobHeadsModuleTest).
+	static final Set<String> SUPPORTED_MOBS = Set.of(
 		"allay", "armadillo", "axolotl", "bat", "bee", "blaze", "bogged", "breeze",
 		"camel", "camel_husk", "cat", "cave_spider", "chicken", "cod", "copper_golem",
 		"cow", "creaking", "creeper", "dolphin", "donkey", "drowned", "elder_guardian",
@@ -32,8 +33,9 @@ public final class MoreMobHeadsModule {
 
 	public static void initialize() {
 		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
+			// Deliberately not limited to builtin sources, so heads still drop when a pack replaces the vanilla table.
 			Identifier id = key.identifier();
-			if (!source.isBuiltin() || !id.getNamespace().equals("minecraft")
+			if (!id.getNamespace().equals("minecraft")
 				|| !id.getPath().startsWith(ENTITY_TABLE_PREFIX)) {
 				return;
 			}
