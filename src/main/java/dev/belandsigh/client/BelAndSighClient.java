@@ -7,6 +7,7 @@ import dev.belandsigh.mounts.MountNetworking.ManagementDataPayload;
 import dev.belandsigh.mounts.MountNetworking.SelectionStatePayload;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -24,6 +25,7 @@ public final class BelAndSighClient implements ClientModInitializer {
 				MountManagementScreen.updateSelections(payload));
 		ClientPlayNetworking.registerGlobalReceiver(StoredXpPayload.TYPE, (payload, context) ->
 				FurnaceXpClientState.update(payload));
+		ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> FurnaceXpClientState.reset());
 
 		ItemTooltipCallback.EVENT.register((stack, context, flag, lines) -> {
 			if (!stack.isDamageableItem()) {

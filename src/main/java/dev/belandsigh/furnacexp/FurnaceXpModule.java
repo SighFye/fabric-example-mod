@@ -4,6 +4,7 @@ import dev.belandsigh.BelAndSighMod;
 import dev.belandsigh.mixin.AbstractFurnaceBlockEntityAccessor;
 import dev.belandsigh.mixin.AbstractFurnaceMenuAccessor;
 import it.unimi.dsi.fastutil.objects.Reference2IntMap;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -41,6 +42,9 @@ import java.util.UUID;
  */
 public final class FurnaceXpModule {
 	public static final int COLLECT_BUTTON_ID = 0;
+	/** Stored XP only changes when a smelt finishes (every 100-200 ticks), so re-summing a quarter-second
+	 *  apart is invisible. A newly opened furnace and a collect click are still synced immediately. */
+	private static final int SYNC_INTERVAL_TICKS = 5;
 	private static final Map<UUID, SentState> LAST_SENT = new HashMap<>();
 
 	private FurnaceXpModule() {
@@ -50,11 +54,13 @@ public final class FurnaceXpModule {
 		PayloadTypeRegistry.clientboundPlay().register(StoredXpPayload.TYPE, StoredXpPayload.CODEC);
 
 		ServerTickEvents.END_SERVER_TICK.register(server -> {
+			boolean periodic = server.getTickCount() % SYNC_INTERVAL_TICKS == 0;
 			for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-				syncOpenFurnace(player);
+				syncOpenFurnace(player, periodic);
 			}
 		});
 		ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> LAST_SENT.remove(handler.getPlayer().getUUID()));
+		ServerLifecycleEvents.SERVER_STOPPED.register(server -> LAST_SENT.clear());
 	}
 
 	/** Called from the menu button hook; returns true when the click was ours and was handled. */
@@ -66,25 +72,36 @@ public final class FurnaceXpModule {
 		if (furnace == null) {
 			return false;
 		}
-		furnace.awardUsedRecipesAndPopExperience(serverPlayer);
-		furnace.setChanged();
+		// An empty furnace has nothing to pay out; skip the chunk-dirty and comparator update from setChanged().
+		if (!((AbstractFurnaceBlockEntityAccessor) furnace).belandsigh$getRecipesUsed().isEmpty()) {
+			furnace.awardUsedRecipesAndPopExperience(serverPlayer);
+			furnace.setChanged();
+		}
+		// Resync now rather than on the next periodic tick, so the button shows the collected result immediately.
+		syncOpenFurnace(serverPlayer, true);
 		return true;
 	}
 
-	private static void syncOpenFurnace(ServerPlayer player) {
+	private static void syncOpenFurnace(ServerPlayer player, boolean periodic) {
 		AbstractFurnaceBlockEntity furnace = furnaceFor(player.containerMenu);
 		if (furnace == null || !(furnace.getLevel() instanceof ServerLevel level)) {
-			LAST_SENT.remove(player.getUUID());
+			if (!LAST_SENT.isEmpty()) {
+				LAST_SENT.remove(player.getUUID());
+			}
+			return;
+		}
+		int containerId = player.containerMenu.containerId;
+		SentState previous = LAST_SENT.get(player.getUUID());
+		boolean newlyOpened = previous == null || previous.containerId() != containerId;
+		if (!periodic && !newlyOpened) {
 			return;
 		}
 		if (!ServerPlayNetworking.canSend(player, StoredXpPayload.TYPE)) {
 			return;
 		}
-		int containerId = player.containerMenu.containerId;
 		int tenths = FurnaceXpMath.toTenths(storedExperience(furnace, level));
-		SentState sent = new SentState(containerId, tenths);
-		if (!sent.equals(LAST_SENT.get(player.getUUID()))) {
-			LAST_SENT.put(player.getUUID(), sent);
+		if (newlyOpened || previous.tenths() != tenths) {
+			LAST_SENT.put(player.getUUID(), new SentState(containerId, tenths));
 			ServerPlayNetworking.send(player, new StoredXpPayload(containerId, tenths));
 		}
 	}

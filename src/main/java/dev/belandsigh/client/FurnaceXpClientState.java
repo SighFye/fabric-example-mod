@@ -20,10 +20,9 @@ public final class FurnaceXpClientState {
 		return menuContainerId == containerId ? tenths : -1;
 	}
 
-	/** Optimistically empties the display after a click; the server confirms with its next sync. */
-	public static void clear(int menuContainerId) {
-		if (menuContainerId == containerId) {
-			tenths = 0;
-		}
+	/** Forgets the last server's value, so container ids reused on another server can't show a stale button. */
+	public static void reset() {
+		containerId = -1;
+		tenths = 0;
 	}
 }

@@ -30,6 +30,9 @@ public abstract class FurnaceScreenMixin extends Screen {
 
 	private Button belandsigh$collectXpButton;
 	private int belandsigh$shownTenths = -1;
+	// The tooltip's "levels gained" depends on the player's own XP too, so track that as well.
+	private int belandsigh$shownLevel = -1;
+	private float belandsigh$shownProgress = -1.0F;
 
 	protected FurnaceScreenMixin(Component title) {
 		super(title);
@@ -38,11 +41,11 @@ public abstract class FurnaceScreenMixin extends Screen {
 	@Inject(method = "init", at = @At("TAIL"))
 	private void belandsigh$addCollectXpButton(CallbackInfo ci) {
 		belandsigh$shownTenths = -1;
-		belandsigh$collectXpButton = Button.builder(Component.empty(), button -> {
-				int containerId = belandsigh$containerId();
-				minecraft.gameMode.handleInventoryButtonClick(containerId, FurnaceXpModule.COLLECT_BUTTON_ID);
-				FurnaceXpClientState.clear(containerId);
-			})
+		belandsigh$shownLevel = -1;
+		// No optimistic clear: the server resyncs immediately after a collect, and a rejected click
+		// (e.g. out of range) must leave the real value showing.
+		belandsigh$collectXpButton = Button.builder(Component.empty(), button ->
+				minecraft.gameMode.handleInventoryButtonClick(belandsigh$containerId(), FurnaceXpModule.COLLECT_BUTTON_ID))
 			.bounds(belandsigh$buttonX(), belandsigh$buttonY(), BUTTON_WIDTH, BUTTON_HEIGHT)
 			.build();
 		belandsigh$collectXpButton.visible = false;
@@ -59,11 +62,18 @@ public abstract class FurnaceScreenMixin extends Screen {
 		// Stays hidden until the server reports a value, so an unmodded server shows nothing.
 		int tenths = FurnaceXpClientState.tenthsFor(belandsigh$containerId());
 		belandsigh$collectXpButton.visible = tenths >= 0;
-		if (tenths < 0 || tenths == belandsigh$shownTenths) {
+		LocalPlayer player = minecraft.player;
+		// Spectators see the stored amount, but vanilla ignores their clicks, so the button is read-only.
+		belandsigh$collectXpButton.active = tenths > 0 && player != null && !player.isSpectator();
+		int level = player == null ? 0 : player.experienceLevel;
+		float progress = player == null ? 0.0F : player.experienceProgress;
+		if (tenths < 0 || tenths == belandsigh$shownTenths && level == belandsigh$shownLevel
+				&& progress == belandsigh$shownProgress) {
 			return;
 		}
 		belandsigh$shownTenths = tenths;
-		belandsigh$collectXpButton.active = tenths > 0;
+		belandsigh$shownLevel = level;
+		belandsigh$shownProgress = progress;
 		belandsigh$collectXpButton.setMessage(Component.translatable(
 			"screen.belandsigh.furnace_xp.button", FurnaceXpMath.format(tenths)));
 		belandsigh$collectXpButton.setTooltip(Tooltip.create(belandsigh$tooltip(tenths)));
@@ -74,8 +84,10 @@ public abstract class FurnaceScreenMixin extends Screen {
 			return Component.translatable("screen.belandsigh.furnace_xp.tooltip_empty");
 		}
 		LocalPlayer player = minecraft.player;
+		// Clamped to the display cap so the level loop stays bounded however much XP is stored.
 		double levels = player == null ? 0.0 : FurnaceXpMath.levelsGained(
-			player.experienceLevel, player.experienceProgress, tenths / 10.0);
+			player.experienceLevel, player.experienceProgress,
+			Math.min(tenths, FurnaceXpMath.MAX_DISPLAY_TENTHS) / 10.0);
 		return Component.translatable("screen.belandsigh.furnace_xp.tooltip",
 			FurnaceXpMath.format(tenths), String.format(Locale.ROOT, "%.1f", levels));
 	}
