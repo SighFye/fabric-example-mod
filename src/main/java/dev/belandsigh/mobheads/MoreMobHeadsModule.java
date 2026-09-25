@@ -49,7 +49,7 @@ public final class MoreMobHeadsModule {
 				Registries.LOOT_TABLE,
 				Identifier.fromNamespaceAndPath("more_mob_heads", ENTITY_TABLE_PREFIX + mob)
 			);
-			tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(headTable)));
+			tableBuilder.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(registries.getOrThrow(headTable))));
 		});
 	}
 }

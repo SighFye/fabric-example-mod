@@ -19,7 +19,6 @@
 		"ItemStackDurabilityPingMixin",
 		"NetherPortalBlockMixin",
 		"PlayerDeathDropMixin",
-		"PortalShapeMixin",
 		"ServerPlayerDeathMixin"
 		,"ServerPlayerMountSelectionMixin"
 		,"ServerPlayerDurabilityPingMixin"

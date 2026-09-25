@@ -113,7 +113,7 @@ public final class ArmorStandNetwork {
 
 		public static StatePayload from(ArmorStand stand) {
 			return new StatePayload(stand.showBasePlate(), stand.showArms(), stand.isSmall(), !stand.isNoGravity(),
-					!stand.isInvisible(), stand.isCustomNameVisible(), ArmorStandActions.isLocked(stand), stand.isInvulnerable());
+					!stand.isInvisible(), stand.isCustomNameVisible(), ArmorStandActions.isLocked(stand), stand.isPermanentlyInvulnerable());
 		}
 
 		@Override

@@ -44,7 +44,7 @@ A failed search caused by unrelated fire prevents another activation search in t
 - `src/main/java/dev/belandsigh/customportals/CustomPortalShape.java`
 - `src/main/java/dev/belandsigh/mixin/BaseFireBlockMixin.java`
 - `src/main/java/dev/belandsigh/mixin/NetherPortalBlockMixin.java`
-- `src/main/java/dev/belandsigh/mixin/PortalShapeMixin.java`
+- `src/main/resources/data/minecraft/tags/block/nether_portal_frame.json` (26.3+: adds the frame tag to vanilla's portal frame tag; replaced the old PortalShapeMixin)
 
 ## Discussion decisions
 

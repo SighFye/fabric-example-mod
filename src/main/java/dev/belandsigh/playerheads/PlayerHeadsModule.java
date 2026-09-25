@@ -10,6 +10,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.Permissions;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -55,7 +56,10 @@ public final class PlayerHeadsModule {
 			head.set(DataComponents.LORE, new ItemLore(List.of(lore)));
 		}
 
-		player.drop(head, true, false);
+		ItemEntity drop = player.createItemStackToDrop(head, true, false);
+		if (drop != null) {
+			player.level().addFreshEntity(drop);
+		}
 	}
 
 	private static int giveHead(CommandSourceStack source, String playerName) {
@@ -83,7 +87,10 @@ public final class PlayerHeadsModule {
 				ItemStack head = new ItemStack(Items.PLAYER_HEAD);
 				head.set(DataComponents.PROFILE, ResolvableProfile.createResolved(profile));
 				if (!recipient.getInventory().add(head)) {
-					recipient.drop(head, false);
+					ItemEntity drop = recipient.createItemStackToDrop(head, false, false);
+					if (drop != null) {
+						recipient.level().addFreshEntity(drop);
+					}
 				}
 				source.sendSuccess(
 					() -> Component.literal("Gave you " + playerName + "'s head.").withStyle(ChatFormatting.GREEN),

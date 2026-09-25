@@ -33,7 +33,8 @@ public final class CustomNetherPortalModule {
 	}
 
 	public static void initialize() {
-		// Portal behavior is supplied by the PortalShape, BaseFireBlock and NetherPortalBlock mixins.
+		// Portal behavior is supplied by the BaseFireBlock and NetherPortalBlock mixins; vanilla portal frames
+		// accept FRAME_BLOCKS through data/minecraft/tags/block/nether_portal_frame.json.
 		ServerTickEvents.END_SERVER_TICK.register(server -> clearBrokenCache());
 		ServerLifecycleEvents.SERVER_STOPPED.register(server -> clearBrokenCache());
 	}

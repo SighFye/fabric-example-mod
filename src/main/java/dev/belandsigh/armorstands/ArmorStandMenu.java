@@ -172,7 +172,7 @@ public final class ArmorStandMenu extends ChestMenu {
 		button(slot(3, 1), Items.STICK, "Swap main/off hands", () -> execute(Action.SWAP_HANDS));
 		button(slot(3, 3), Items.IRON_HELMET, "Swap main hand/head", () -> execute(Action.SWAP_HEAD));
 		button(slot(3, 5), Items.SHIELD, state("Locked", ArmorStandActions.isLocked(stand)), () -> execute(Action.LOCK));
-		button(slot(3, 7), Items.BEDROCK, state("Invulnerable", stand.isInvulnerable()), () -> execute(Action.INVULNERABLE));
+		button(slot(3, 7), Items.BEDROCK, state("Invulnerable", stand.isPermanentlyInvulnerable()), () -> execute(Action.INVULNERABLE));
 		button(slot(4, 1), Items.IRON_SWORD, "Mirror left arm to right", () -> mirror(BodyPart.LEFT_ARM, BodyPart.RIGHT_ARM));
 		button(slot(4, 2), Items.IRON_SWORD, "Mirror right arm to left", () -> mirror(BodyPart.RIGHT_ARM, BodyPart.LEFT_ARM));
 		button(slot(4, 3), Items.IRON_BOOTS, "Mirror left leg to right", () -> mirror(BodyPart.LEFT_LEG, BodyPart.RIGHT_LEG));

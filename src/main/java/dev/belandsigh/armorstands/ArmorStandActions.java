@@ -58,7 +58,7 @@ public final class ArmorStandActions {
 			case GRAVITY -> stand.setNoGravity(!stand.isNoGravity());
 			case VISIBLE -> stand.setInvisible(!stand.isInvisible());
 			case NAME_VISIBLE -> stand.setCustomNameVisible(!stand.isCustomNameVisible());
-			case INVULNERABLE -> stand.setInvulnerable(!stand.isInvulnerable());
+			case INVULNERABLE -> stand.setPermanentlyInvulnerable(!stand.isPermanentlyInvulnerable());
 			case LOCK -> toggleLock(player, stand);
 			case ADJUST -> {
 				if (part != null && second >= 0 && second <= 2 && Math.abs(value) <= 45.0) {

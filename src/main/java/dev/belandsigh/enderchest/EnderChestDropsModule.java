@@ -9,7 +9,7 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 /** Ender chests always drop themselves: no Silk Touch needed, and explosions don't destroy them. */
 public final class EnderChestDropsModule {
@@ -26,7 +26,7 @@ public final class EnderChestDropsModule {
 			return LootTable.lootTable()
 					.setParamSet(LootContextParamSets.BLOCK)
 					.withPool(LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1))
+							.setRolls(ContextIntProviders.exactly(1))
 							.add(LootItem.lootTableItem(Items.ENDER_CHEST)))
 					.setRandomSequence(key.identifier())
 					.build();

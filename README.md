@@ -1,6 +1,6 @@
 # BelAndSigh
 
-A Fabric mod for Minecraft 26.2 that replaces the selected Vanilla Tweaks
+A Fabric mod for Minecraft 26.3 that replaces the selected Vanilla Tweaks
 datapacks with native Java implementations.
 
 ## Armor Stands module
@@ -26,10 +26,10 @@ scoreboards, marker entities, commands, or a posing book.
 
 ## Requirements
 
-- Minecraft Java Edition 26.2
+- Minecraft Java Edition 26.3
 - Java 25
 - Fabric Loader 0.19.3 or newer
-- Fabric API 0.158.0+26.2 or newer
+- Fabric API 0.160.5+26.3 or newer
 
 Build with `./gradlew build`. The distributable JAR is written to `build/libs`.
 

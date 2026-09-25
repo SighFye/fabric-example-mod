@@ -7,7 +7,6 @@ import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -23,16 +22,5 @@ public abstract class BaseFireBlockMixin {
 			CallbackInfo ci
 	) {
 		CustomNetherPortalModule.tryCreateIrregularPortal(level, pos);
-	}
-
-	@Redirect(
-			method = "isPortal",
-			at = @At(
-					value = "INVOKE",
-					target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"
-			)
-	)
-	private static boolean belandsigh$recognizeTaggedPortalFrame(BlockState state, Object vanillaFrameBlock) {
-		return state.is(CustomNetherPortalModule.FRAME_BLOCKS);
 	}
 }
