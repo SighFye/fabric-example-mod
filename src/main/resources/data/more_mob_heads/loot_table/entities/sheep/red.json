@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.evoker.prepare_wololo",
 								"minecraft:profile": {
+									"id": [-1414994231, -1988001296, 369954640, -5679898],
 									"properties": [
 										{
 											"name": "textures",

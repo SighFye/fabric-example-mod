@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.breeze.idle_air",
 								"minecraft:profile": {
+									"id": [-1569361270, -135880036, -2012062873, 1513740426],
 									"properties": [
 										{
 											"name": "textures",

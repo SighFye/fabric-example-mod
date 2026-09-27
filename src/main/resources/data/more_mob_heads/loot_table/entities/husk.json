@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.husk.ambient",
 								"minecraft:profile": {
+									"id": [1933062539, -921028915, 1521920648, 1553616610],
 									"properties": [
 										{
 											"name": "textures",

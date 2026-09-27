@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.enderman.scream",
 								"minecraft:profile": {
+									"id": [-1988646577, 38374573, 217953884, -1479839006],
 									"properties": [
 										{
 											"name": "textures",

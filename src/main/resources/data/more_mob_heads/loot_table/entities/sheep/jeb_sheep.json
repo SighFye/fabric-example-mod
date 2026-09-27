@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.sheep.shear",
 								"minecraft:profile": {
+									"id": [590554742, 1511591615, -1865070483, 1911688741],
 									"properties": [
 										{
 											"name": "textures",

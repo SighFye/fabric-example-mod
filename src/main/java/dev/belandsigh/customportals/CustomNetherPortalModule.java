@@ -1,6 +1,8 @@
 package dev.belandsigh.customportals;
 
 import dev.belandsigh.BelAndSighMod;
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -40,7 +42,8 @@ public final class CustomNetherPortalModule {
 	}
 
 	public static boolean tryCreateIrregularPortal(Level level, BlockPos ignitionPos) {
-		if (level.isClientSide()
+		if (!ModSettings.enabled(Feature.CUSTOM_NETHER_PORTALS)
+				|| level.isClientSide()
 				|| level.dimension() != Level.OVERWORLD && level.dimension() != Level.NETHER
 				|| !level.getBlockState(ignitionPos).is(BlockTags.FIRE)) {
 			return false;
@@ -60,6 +63,9 @@ public final class CustomNetherPortalModule {
 	}
 
 	public static boolean isCompleteIrregularPortal(LevelReader level, BlockPos portalPos, Direction.Axis axis) {
+		if (!ModSettings.enabled(Feature.CUSTOM_NETHER_PORTALS)) {
+			return false;
+		}
 		// Only the server thread's own levels share the cache; client and world-gen readers search directly.
 		if (!(level instanceof ServerLevel serverLevel)) {
 			return CustomPortalShape.isComplete(CustomPortalShape.cells(level), portalPos, axis, null);

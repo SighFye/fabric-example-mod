@@ -31,6 +31,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.cat.ambient",
 										"minecraft:profile": {
+											"id": [-567749875, -1275542530, 1355435814, -217620938],
 											"properties": [
 												{
 													"name": "textures",
@@ -63,6 +64,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.cat.ambient",
 										"minecraft:profile": {
+											"id": [1339100302, 1979085720, -998930478, 1606502131],
 											"properties": [
 												{
 													"name": "textures",
@@ -95,6 +97,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.cat.ambient",
 										"minecraft:profile": {
+											"id": [554949587, -962561887, 2068765560, -838346698],
 											"properties": [
 												{
 													"name": "textures",
@@ -127,6 +130,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.cat.ambient",
 										"minecraft:profile": {
+											"id": [-709625654, 1262114140, -885188284, 1233161036],
 											"properties": [
 												{
 													"name": "textures",
@@ -159,6 +163,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.cat.ambient",
 										"minecraft:profile": {
+											"id": [1401544917, -739762300, -1250893161, -2109426777],
 											"properties": [
 												{
 													"name": "textures",
@@ -191,6 +196,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.cat.ambient",
 										"minecraft:profile": {
+											"id": [872453927, 464945406, -1742830178, -1951842326],
 											"properties": [
 												{
 													"name": "textures",
@@ -223,6 +229,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.cat.ambient",
 										"minecraft:profile": {
+											"id": [-12531898, 638515484, -1766690471, 2036238105],
 											"properties": [
 												{
 													"name": "textures",
@@ -255,6 +262,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.cat.ambient",
 										"minecraft:profile": {
+											"id": [-595966510, 1485431805, -143033166, 1491234126],
 											"properties": [
 												{
 													"name": "textures",
@@ -287,6 +295,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.cat.ambient",
 										"minecraft:profile": {
+											"id": [567368393, 1435408568, -1698002477, -2120940559],
 											"properties": [
 												{
 													"name": "textures",
@@ -319,6 +328,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.cat.ambient",
 										"minecraft:profile": {
+											"id": [-1596243657, 1822785009, 264967481, -395946770],
 											"properties": [
 												{
 													"name": "textures",
@@ -351,6 +361,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.cat.ambient",
 										"minecraft:profile": {
+											"id": [583133215, -264338781, -417461035, -68394882],
 											"properties": [
 												{
 													"name": "textures",

@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.parched.ambient",
 								"minecraft:profile": {
+									"id": [615436031, 1596382596, 331726901, 1203909804],
 									"properties": [
 										{
 											"name": "textures",

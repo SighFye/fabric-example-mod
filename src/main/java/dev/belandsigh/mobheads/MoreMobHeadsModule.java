@@ -1,5 +1,7 @@
 package dev.belandsigh.mobheads;
 
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -33,6 +35,9 @@ public final class MoreMobHeadsModule {
 
 	public static void initialize() {
 		LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
+			if (!ModSettings.enabled(Feature.MORE_MOB_HEADS)) {
+				return;
+			}
 			// Deliberately not limited to builtin sources, so heads still drop when a pack replaces the vanilla table.
 			Identifier id = key.identifier();
 			if (!id.getNamespace().equals("minecraft")

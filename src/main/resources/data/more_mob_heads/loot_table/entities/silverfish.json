@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.silverfish.ambient",
 								"minecraft:profile": {
+									"id": [-228679762, 924214494, 444599428, -802876854],
 									"properties": [
 										{
 											"name": "textures",

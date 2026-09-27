@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.zombie_horse.ambient",
 								"minecraft:profile": {
+									"id": [1712914366, 486154328, -25124763, -150203764],
 									"properties": [
 										{
 											"name": "textures",

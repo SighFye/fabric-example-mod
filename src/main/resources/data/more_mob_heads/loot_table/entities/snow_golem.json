@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.snow_golem.hurt",
 								"minecraft:profile": {
+									"id": [-895229570, -239953333, -2013641762, -505736508],
 									"properties": [
 										{
 											"name": "textures",

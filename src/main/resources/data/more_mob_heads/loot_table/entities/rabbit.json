@@ -18,6 +18,7 @@
                             "components": {
                                 "minecraft:note_block_sound": "minecraft:entity.rabbit.ambient",
                                 "minecraft:profile": {
+                                    "id": [-2141429784, 195207400, 5020842, 656664454],
                                     "properties": [
                                         {
                                             "name": "textures",
@@ -95,6 +96,7 @@
                                     "components": {
                                         "minecraft:note_block_sound": "minecraft:entity.rabbit.ambient",
                                         "minecraft:profile": {
+                                            "id": [-1904401903, 447626888, 1190718533, -987462669],
                                             "properties": [
                                                 {
                                                     "name": "textures",
@@ -137,6 +139,7 @@
                                     "components": {
                                         "minecraft:note_block_sound": "minecraft:entity.rabbit.ambient",
                                         "minecraft:profile": {
+                                            "id": [-896133797, -1236190211, 294753493, -1930326418],
                                             "properties": [
                                                 {
                                                     "name": "textures",
@@ -179,6 +182,7 @@
                                     "components": {
                                         "minecraft:note_block_sound": "minecraft:entity.rabbit.ambient",
                                         "minecraft:profile": {
+                                            "id": [-1166561052, 1438768421, 851372184, 697141604],
                                             "properties": [
                                                 {
                                                     "name": "textures",
@@ -221,6 +225,7 @@
                                     "components": {
                                         "minecraft:note_block_sound": "minecraft:entity.rabbit.ambient",
                                         "minecraft:profile": {
+                                            "id": [298039036, 4052548, -1690545219, -1016388853],
                                             "properties": [
                                                 {
                                                     "name": "textures",
@@ -263,6 +268,7 @@
                                     "components": {
                                         "minecraft:note_block_sound": "minecraft:entity.rabbit.ambient",
                                         "minecraft:profile": {
+                                            "id": [-530418624, -491744683, -1835466085, -1650052619],
                                             "properties": [
                                                 {
                                                     "name": "textures",
@@ -305,6 +311,7 @@
                                     "components": {
                                         "minecraft:note_block_sound": "minecraft:entity.rabbit.ambient",
                                         "minecraft:profile": {
+                                            "id": [1716751732, -1482624967, -1019906894, 1138620249],
                                             "properties": [
                                                 {
                                                     "name": "textures",
@@ -347,6 +354,7 @@
                                     "components": {
                                         "minecraft:note_block_sound": "minecraft:entity.rabbit.attack",
                                         "minecraft:profile": {
+                                            "id": [842258082, -492420697, -1068679363, 592904108],
                                             "properties": [
                                                 {
                                                     "name": "textures",

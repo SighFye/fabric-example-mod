@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.generic.explode",
 								"minecraft:profile": {
+									"id": [890365091, -710027611, 1150921645, 282565072],
 									"properties": [
 										{
 											"name": "textures",

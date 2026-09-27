@@ -14,6 +14,7 @@
                             "components": {
                                 "minecraft:note_block_sound": "minecraft:entity.sulfur_cube.absorb",
                                 "minecraft:profile": {
+                                    "id": [-1513467797, -63653464, -792801197, 236152091],
                                     "properties": [
                                         {
                                             "name": "textures",

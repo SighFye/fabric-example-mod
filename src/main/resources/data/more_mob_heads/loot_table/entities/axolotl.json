@@ -21,6 +21,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.axolotl.idle_air",
 										"minecraft:profile": {
+											"id": [1719539178, -1221565258, 1745690041, -1952168467],
 											"properties": [
 												{
 													"name": "textures",
@@ -63,6 +64,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.axolotl.idle_air",
 										"minecraft:profile": {
+											"id": [1204748916, -1718880857, -208980221, 1846890257],
 											"properties": [
 												{
 													"name": "textures",
@@ -105,6 +107,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.axolotl.idle_air",
 										"minecraft:profile": {
+											"id": [-444243951, 1605030166, 431215965, -409013600],
 											"properties": [
 												{
 													"name": "textures",
@@ -147,6 +150,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.axolotl.idle_air",
 										"minecraft:profile": {
+											"id": [-2062444844, 959473053, 1904089962, 74057937],
 											"properties": [
 												{
 													"name": "textures",
@@ -189,6 +193,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.axolotl.idle_air",
 										"minecraft:profile": {
+											"id": [1761415344, -17540775, 1622275649, -1816360424],
 											"properties": [
 												{
 													"name": "textures",

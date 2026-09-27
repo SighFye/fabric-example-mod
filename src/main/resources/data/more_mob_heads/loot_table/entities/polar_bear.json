@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.polar_bear.ambient",
 								"minecraft:profile": {
+									"id": [-846789999, 509701133, 855369592, -778702306],
 									"properties": [
 										{
 											"name": "textures",

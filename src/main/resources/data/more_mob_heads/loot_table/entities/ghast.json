@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.ghast.warn",
 								"minecraft:profile": {
+									"id": [-985799910, 754991526, -277495942, 1820616774],
 									"properties": [
 										{
 											"name": "textures",

@@ -1,6 +1,8 @@
 package dev.belandsigh.furnacexp;
 
 import dev.belandsigh.BelAndSighMod;
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import dev.belandsigh.mixin.AbstractFurnaceBlockEntityAccessor;
 import dev.belandsigh.mixin.AbstractFurnaceMenuAccessor;
 import it.unimi.dsi.fastutil.objects.Reference2IntMap;
@@ -54,6 +56,7 @@ public final class FurnaceXpModule {
 		PayloadTypeRegistry.clientboundPlay().register(StoredXpPayload.TYPE, StoredXpPayload.CODEC);
 
 		ServerTickEvents.END_SERVER_TICK.register(server -> {
+			if (!ModSettings.enabled(Feature.FURNACE_XP)) return;
 			boolean periodic = server.getTickCount() % SYNC_INTERVAL_TICKS == 0;
 			for (ServerPlayer player : server.getPlayerList().getPlayers()) {
 				syncOpenFurnace(player, periodic);
@@ -65,7 +68,8 @@ public final class FurnaceXpModule {
 
 	/** Called from the menu button hook; returns true when the click was ours and was handled. */
 	public static boolean handleMenuButton(AbstractContainerMenu menu, Player player, int buttonId) {
-		if (buttonId != COLLECT_BUTTON_ID || !(player instanceof ServerPlayer serverPlayer)) {
+		if (!ModSettings.enabled(Feature.FURNACE_XP)
+				|| buttonId != COLLECT_BUTTON_ID || !(player instanceof ServerPlayer serverPlayer)) {
 			return false;
 		}
 		AbstractFurnaceBlockEntity furnace = furnaceFor(menu);

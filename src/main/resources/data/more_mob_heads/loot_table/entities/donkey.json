@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.donkey.ambient",
 								"minecraft:profile": {
+									"id": [1311108754, 1940739997, 1153384559, 1868731736],
 									"properties": [
 										{
 											"name": "textures",

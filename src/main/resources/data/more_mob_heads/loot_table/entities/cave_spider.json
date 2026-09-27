@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.spider.step",
 								"minecraft:profile": {
+									"id": [-1499348391, -1614212605, -1504050220, 2043206791],
 									"properties": [
 										{
 											"name": "textures",

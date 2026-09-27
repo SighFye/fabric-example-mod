@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.phantom.ambient",
 								"minecraft:profile": {
+									"id": [2123699518, -1036876622, -2081420007, -761833742],
 									"properties": [
 										{
 											"name": "textures",

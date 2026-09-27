@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.zombified_piglin.ambient",
 								"minecraft:profile": {
+									"id": [770715944, -1342003449, 148275806, -691055395],
 									"properties": [
 										{
 											"name": "textures",

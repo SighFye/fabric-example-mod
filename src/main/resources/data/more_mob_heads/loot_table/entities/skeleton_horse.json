@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.skeleton_horse.ambient",
 								"minecraft:profile": {
+									"id": [1847748357, -1121280389, -1193889548, -626431559],
 									"properties": [
 										{
 											"name": "textures",

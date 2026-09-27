@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.pig.ambient",
 								"minecraft:profile": {
+									"id": [1106146945, -1376780185, -263457754, 298415681],
 									"properties": [
 										{
 											"name": "textures",
@@ -29,6 +30,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.pig.ambient",
 								"minecraft:profile": {
+									"id": [-1172777980, 1020709123, -2040035183, 1339372593],
 									"properties": [
 										{
 											"name": "textures",
@@ -55,6 +57,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.pig.ambient",
 								"minecraft:profile": {
+									"id": [2079039906, -714177288, -450892442, 1509084028],
 									"properties": [
 										{
 											"name": "textures",

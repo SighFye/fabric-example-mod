@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.sheep.ambient",
 								"minecraft:profile": {
+									"id": [-165936726, 1709168294, 302750983, -1821726995],
 									"properties": [
 										{
 											"name": "textures",

@@ -31,6 +31,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.parrot.ambient",
 										"minecraft:profile": {
+											"id": [1084478591, 1424431704, -1081124923, 624931538],
 											"properties": [
 												{
 													"name": "textures",
@@ -63,6 +64,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.parrot.ambient",
 										"minecraft:profile": {
+											"id": [-1186212868, -187407532, -303497481, 824630218],
 											"properties": [
 												{
 													"name": "textures",
@@ -95,6 +97,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.parrot.ambient",
 										"minecraft:profile": {
+											"id": [1780335409, 354627456, 136694473, -472257277],
 											"properties": [
 												{
 													"name": "textures",
@@ -127,6 +130,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.parrot.ambient",
 										"minecraft:profile": {
+											"id": [1919471159, -1098577939, 1742984203, 1635659122],
 											"properties": [
 												{
 													"name": "textures",
@@ -159,6 +163,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.parrot.ambient",
 										"minecraft:profile": {
+											"id": [1908306490, -1586261031, -1649550319, -1667714361],
 											"properties": [
 												{
 													"name": "textures",

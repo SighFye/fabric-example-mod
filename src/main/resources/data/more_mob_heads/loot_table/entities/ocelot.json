@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.ocelot.ambient",
 								"minecraft:profile": {
+									"id": [-1854550973, -359996927, 1755443568, -2129965660],
 									"properties": [
 										{
 											"name": "textures",

@@ -1,5 +1,7 @@
 package dev.belandsigh.mounts;
 
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.sounds.SoundSource;
@@ -17,6 +19,9 @@ public final class MountWhistleItem extends Item {
 
 	@Override
 	public InteractionResult use(Level level, Player player, InteractionHand hand) {
+		if (!ModSettings.enabled(Feature.MOUNT_WHISTLE)) {
+			return InteractionResult.PASS;
+		}
 		ItemStack stack = player.getItemInHand(hand);
 		if (!level.isClientSide()) {
 			level.playSound(null, player.getX(), player.getY(), player.getZ(),

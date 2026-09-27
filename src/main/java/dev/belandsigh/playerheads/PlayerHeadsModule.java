@@ -1,5 +1,7 @@
 package dev.belandsigh.playerheads;
 
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
@@ -28,7 +30,7 @@ public final class PlayerHeadsModule {
 
 	public static void initialize() {
 		ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {
-			if (entity instanceof ServerPlayer player) {
+			if (ModSettings.enabled(Feature.PLAYER_HEADS) && entity instanceof ServerPlayer player) {
 				dropHead(player, damageSource.getEntity());
 			}
 		});
@@ -63,6 +65,10 @@ public final class PlayerHeadsModule {
 	}
 
 	private static int giveHead(CommandSourceStack source, String playerName) {
+		if (!ModSettings.enabled(Feature.PLAYER_HEADS)) {
+			source.sendFailure(Component.literal("Player Heads is disabled in BelAndSigh settings."));
+			return 0;
+		}
 		if (!VALID_PLAYER_NAME.matcher(playerName).matches()) {
 			source.sendFailure(Component.literal(
 				"Player names may contain only letters, numbers, and underscores and must be at most 16 characters long."

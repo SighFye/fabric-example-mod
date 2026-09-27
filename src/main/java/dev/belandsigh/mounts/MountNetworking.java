@@ -1,6 +1,8 @@
 package dev.belandsigh.mounts;
 
 import dev.belandsigh.BelAndSighMod;
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import dev.belandsigh.mounts.PlayerMountSelectionService.SelectionResult;
 import dev.belandsigh.mounts.MountBindingService.UnbindResult;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -42,6 +44,7 @@ public final class MountNetworking {
 		PayloadTypeRegistry.clientboundPlay().register(ManagementDataPayload.TYPE, ManagementDataPayload.CODEC);
 
 		ServerPlayNetworking.registerGlobalReceiver(SetSelectionPayload.TYPE, (payload, context) -> {
+			if (!ModSettings.enabled(Feature.MOUNT_WHISTLE)) return;
 			ServerPlayer player = context.player();
 			SelectionResult result = PlayerMountSelectionService.setSelectedMount(
 				player, payload.category(), payload.mountUuid().orElse(null));
@@ -50,6 +53,7 @@ public final class MountNetworking {
 		});
 
 		ServerPlayNetworking.registerGlobalReceiver(RequestManagementDataPayload.TYPE, (payload, context) -> {
+			if (!ModSettings.enabled(Feature.MOUNT_WHISTLE)) return;
 			ServerPlayer player = context.player();
 			long now = player.level().getGameTime();
 			Long last = LAST_MANAGEMENT_REQUEST.get(player.getUUID());
@@ -63,6 +67,7 @@ public final class MountNetworking {
 			LAST_MANAGEMENT_REQUEST.remove(handler.getPlayer().getUUID()));
 
 		ServerPlayNetworking.registerGlobalReceiver(UnbindMountPayload.TYPE, (payload, context) -> {
+			if (!ModSettings.enabled(Feature.MOUNT_WHISTLE)) return;
 			ServerPlayer player = context.player();
 			Entity mount = player.level().getEntityInAnyDimension(payload.mountUuid());
 			UnbindResult result = mount == null

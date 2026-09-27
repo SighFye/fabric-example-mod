@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.slime.squish_small",
 								"minecraft:profile": {
+									"id": [-1067178772, 2048486165, -106080461, -1553306337],
 									"properties": [
 										{
 											"name": "textures",

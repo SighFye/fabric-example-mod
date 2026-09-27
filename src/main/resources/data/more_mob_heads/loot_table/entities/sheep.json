@@ -10,51 +10,6 @@
             "rolls": 1.0,
             "entries": [
                 {
-                    "type": "minecraft:loot_table",
-                    "value": "more_mob_heads:entities/sheep/jeb_"
-                }
-            ],
-            "functions": [
-                {
-                    "function": "minecraft:set_name",
-                    "entity": "this",
-                    "name": {
-                        "selector": "@s[name=jeb_]"
-                    }
-                },
-                {
-                    "function": "minecraft:filtered",
-                    "item_filter": {
-                        "components": {
-                            "minecraft:custom_name": ""
-                        }
-                    },
-                    "on_pass": {
-                        "function": "minecraft:set_count",
-                        "count": 0
-                    },
-                    "on_fail": {
-                        "function": "minecraft:set_count",
-                        "count": 1
-                    }
-                },
-                {
-                    "function": "minecraft:set_components",
-                    "components": {
-                        "!minecraft:custom_name": {}
-                    }
-                }
-            ]
-        },
-        {
-            "conditions": [
-                {
-                    "condition": "killed_by_player"
-                }
-            ],
-            "rolls": 1.0,
-            "entries": [
-                {
                     "type": "minecraft:alternatives",
                     "children": [
                         {
@@ -346,37 +301,6 @@
                             "value": "more_mob_heads:entities/sheep/black"
                         }
                     ]
-                }
-            ],
-            "functions": [
-                {
-                    "function": "minecraft:set_name",
-                    "entity": "this",
-                    "name": {
-                        "selector": "@s[name=jeb_]"
-                    }
-                },
-                {
-                    "function": "minecraft:filtered",
-                    "item_filter": {
-                        "components": {
-                            "minecraft:custom_name": ""
-                        }
-                    },
-                    "on_pass": {
-                        "function": "minecraft:set_count",
-                        "count": 1
-                    },
-                    "on_fail": {
-                        "function": "minecraft:set_count",
-                        "count": 0
-                    }
-                },
-                {
-                    "function": "minecraft:set_components",
-                    "components": {
-                        "!minecraft:custom_name": {}
-                    }
                 }
             ]
         }

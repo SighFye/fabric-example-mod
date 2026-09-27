@@ -1,5 +1,7 @@
 {
   "item.belandsigh.mount_whistle": "Mount Whistle",
+  "key.category.belandsigh.general": "BelAndSigh",
+  "key.belandsigh.open_settings": "Open settings",
   "advancements.belandsigh.mount_whistle.title": "Echoes Across Distance",
   "advancements.belandsigh.mount_whistle.description": "Craft a Mount Whistle to call your mounts home",
   "subtitles.belandsigh.mount_whistle": "Mount Whistle sounds",

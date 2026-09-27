@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.chicken.ambient",
 								"minecraft:profile": {
+									"id": [1118793304, 1206821017, -508515444, 548005363],
 									"properties": [
 										{
 											"name": "textures",
@@ -40,6 +41,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.chicken.ambient",
 								"minecraft:profile": {
+									"id": [1349989914, 419175875, -1597447474, -517809300],
 									"properties": [
 										{
 											"name": "textures",
@@ -66,6 +68,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.chicken.ambient",
 								"minecraft:profile": {
+									"id": [2103881891, 1437214707, 1688076096, -2130799957],
 									"properties": [
 										{
 											"name": "textures",

@@ -31,6 +31,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.horse.ambient",
 										"minecraft:profile": {
+											"id": [-943955616, -1758399797, 16935162, -1333650476],
 											"properties": [
 												{
 													"name": "textures",
@@ -63,6 +64,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.horse.ambient",
 										"minecraft:profile": {
+											"id": [1117836620, -1066326403, 1811767122, 1066174940],
 											"properties": [
 												{
 													"name": "textures",
@@ -95,6 +97,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.horse.ambient",
 										"minecraft:profile": {
+											"id": [1820795089, -179148485, 1084859194, -96350480],
 											"properties": [
 												{
 													"name": "textures",
@@ -127,6 +130,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.horse.ambient",
 										"minecraft:profile": {
+											"id": [1735491591, 1892372097, 1245548824, 1875736926],
 											"properties": [
 												{
 													"name": "textures",
@@ -159,6 +163,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.horse.ambient",
 										"minecraft:profile": {
+											"id": [1730411099, -424926574, -1490931467, -42289565],
 											"properties": [
 												{
 													"name": "textures",
@@ -191,6 +196,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.horse.ambient",
 										"minecraft:profile": {
+											"id": [-1034320368, 562104383, -1290290089, 318181453],
 											"properties": [
 												{
 													"name": "textures",
@@ -223,6 +229,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.horse.ambient",
 										"minecraft:profile": {
+											"id": [2133017002, -1597494238, -1144912122, 1043436177],
 											"properties": [
 												{
 													"name": "textures",

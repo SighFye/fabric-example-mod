@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.allay.ambient_without_item",
 								"minecraft:profile": {
+									"id": [-872183529, 2109385007, 224394744, 1216752767],
 									"properties": [
 										{
 											"name": "textures",

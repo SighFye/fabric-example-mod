@@ -1,6 +1,8 @@
 package dev.belandsigh.armorstands;
 
 import dev.belandsigh.BelAndSighMod;
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import dev.belandsigh.armorstands.ArmorStandActions.Action;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -22,6 +24,9 @@ public final class ArmorStandNetwork {
 		PayloadTypeRegistry.clientboundPlay().register(StatePayload.TYPE, StatePayload.CODEC);
 
 		ServerPlayNetworking.registerGlobalReceiver(ActionPayload.TYPE, (payload, context) -> {
+			if (!ModSettings.enabled(Feature.ARMOR_STANDS)) {
+				return;
+			}
 			ServerPlayer player = context.player();
 			Entity entity = player.level().getEntity(payload.entityId());
 			if (!(entity instanceof ArmorStand stand)

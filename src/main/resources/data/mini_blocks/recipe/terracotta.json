@@ -1,4 +1,7 @@
-{
+﻿{
+  "fabric:load_conditions": [
+    { "condition": "belandsigh:mini_blocks_enabled" }
+  ],
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:terracotta",
   "result": {

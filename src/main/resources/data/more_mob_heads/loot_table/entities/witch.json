@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.witch.ambient",
 								"minecraft:profile": {
+									"id": [-1524567764, 1674023201, -2033926578, 818101338],
 									"properties": [
 										{
 											"name": "textures",

@@ -31,6 +31,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.zombie_villager.ambient",
 										"minecraft:profile": {
+											"id": [-932733437, 1197987096, 1712165910, -597774543],
 											"properties": [
 												{
 													"name": "textures",
@@ -61,6 +62,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.zombie_villager.ambient",
 										"minecraft:profile": {
+											"id": [-1664184980, -468562708, 1048881234, -418426839],
 											"properties": [
 												{
 													"name": "textures",
@@ -91,6 +93,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.zombie_villager.ambient",
 										"minecraft:profile": {
+											"id": [-435683152, 269674851, -406713205, -1588891488],
 											"properties": [
 												{
 													"name": "textures",
@@ -121,6 +124,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.zombie_villager.ambient",
 										"minecraft:profile": {
+											"id": [693655435, -522116750, 1934260260, 766186646],
 											"properties": [
 												{
 													"name": "textures",
@@ -151,6 +155,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.zombie_villager.ambient",
 										"minecraft:profile": {
+											"id": [-142786209, -1683337308, -1243588363, -1206126608],
 											"properties": [
 												{
 													"name": "textures",
@@ -181,6 +186,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.zombie_villager.ambient",
 										"minecraft:profile": {
+											"id": [1761989951, -453317877, 828008568, -911507020],
 											"properties": [
 												{
 													"name": "textures",
@@ -211,6 +217,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.zombie_villager.ambient",
 										"minecraft:profile": {
+											"id": [782396096, -497772371, -1381700374, 1488670326],
 											"properties": [
 												{
 													"name": "textures",
@@ -241,6 +248,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.zombie_villager.ambient",
 										"minecraft:profile": {
+											"id": [-78304112, -233641899, -786278955, -849154760],
 											"properties": [
 												{
 													"name": "textures",
@@ -271,6 +279,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.zombie_villager.ambient",
 										"minecraft:profile": {
+											"id": [1646336543, 1084017218, 1237781792, -897566305],
 											"properties": [
 												{
 													"name": "textures",
@@ -301,6 +310,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.zombie_villager.ambient",
 										"minecraft:profile": {
+											"id": [-78304112, -233641899, -786278955, -849154760],
 											"properties": [
 												{
 													"name": "textures",
@@ -331,6 +341,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.zombie_villager.ambient",
 										"minecraft:profile": {
+											"id": [-78304112, -233641899, -786278955, -849154760],
 											"properties": [
 												{
 													"name": "textures",
@@ -361,6 +372,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.zombie_villager.ambient",
 										"minecraft:profile": {
+											"id": [-78304112, -233641899, -786278955, -849154760],
 											"properties": [
 												{
 													"name": "textures",
@@ -391,6 +403,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.zombie_villager.ambient",
 										"minecraft:profile": {
+											"id": [1762890174, -207327502, 1741928215, 277264972],
 											"properties": [
 												{
 													"name": "textures",
@@ -421,6 +434,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.zombie_villager.ambient",
 										"minecraft:profile": {
+											"id": [-78304112, -233641899, -786278955, -849154760],
 											"properties": [
 												{
 													"name": "textures",
@@ -451,6 +465,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.zombie_villager.ambient",
 										"minecraft:profile": {
+											"id": [1131448651, 1556284888, 2057342011, 1258838141],
 											"properties": [
 												{
 													"name": "textures",

@@ -1,6 +1,8 @@
 package dev.belandsigh.death;
 
 import dev.belandsigh.BelAndSighMod;
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -69,6 +71,7 @@ public final class DeathLocationModule {
 
 	public static void initialize() {
 		ServerTickEvents.END_SERVER_TICK.register(server -> {
+			if (!ModSettings.enabled(Feature.DEATH_LOCATION)) return;
 			Iterator<Map.Entry<UUID, List<Countdown>>> playerIterator = COUNTDOWNS.entrySet().iterator();
 			while (playerIterator.hasNext()) {
 				Map.Entry<UUID, List<Countdown>> entry = playerIterator.next();
@@ -134,6 +137,7 @@ public final class DeathLocationModule {
 			}
 		});
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+			if (!ModSettings.enabled(Feature.DEATH_LOCATION)) return;
 			ServerPlayer player = handler.getPlayer();
 			List<Countdown> existing = COUNTDOWNS.get(player.getUUID());
 			if (existing != null) {
@@ -161,6 +165,7 @@ public final class DeathLocationModule {
 		// hand. The tracked records themselves live in DeathLocationSavedData keyed by player UUID,
 		// so they don't need to be copied at all.
 		ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> {
+			if (!ModSettings.enabled(Feature.DEATH_LOCATION)) return;
 			List<Countdown> countdowns = COUNTDOWNS.get(oldPlayer.getUUID());
 			if (countdowns != null) {
 				for (Countdown countdown : countdowns) {
@@ -179,6 +184,7 @@ public final class DeathLocationModule {
 	 * fully processed. Death drops all happen synchronously on the server thread, so a single
 	 * in-progress capture is enough. */
 	public static void beginDeathDropCapture(ServerPlayer player, ServerLevel level, BlockPos pos) {
+		if (!ModSettings.enabled(Feature.DEATH_LOCATION)) return;
 		capturingPlayer = player;
 		capturingLevel = level;
 		capturingPos = pos;
@@ -186,6 +192,7 @@ public final class DeathLocationModule {
 	}
 
 	public static void captureDeathDrop(ServerLevel level, ItemEntity item) {
+		if (!ModSettings.enabled(Feature.DEATH_LOCATION)) return;
 		if (capturingPlayer != null && level == capturingLevel) {
 			capturedItemIds.add(item.getUUID());
 		}
@@ -194,6 +201,7 @@ public final class DeathLocationModule {
 	/** Ends the capture begun by {@link #beginDeathDropCapture} and registers the death, if one was
 	 * being captured for {@code player}. */
 	public static void finishDeathDropCapture(ServerPlayer player) {
+		if (!ModSettings.enabled(Feature.DEATH_LOCATION)) return;
 		if (player != capturingPlayer) {
 			return;
 		}
@@ -210,6 +218,7 @@ public final class DeathLocationModule {
 	/** Registers a death at {@code pos}, tracking exactly the item entities in {@code itemIds} - no
 	 * others. A death with no drops (an empty {@code itemIds}) is not tracked at all. */
 	public static void registerDeath(ServerPlayer player, ServerLevel level, BlockPos pos, Set<UUID> itemIds) {
+		if (!ModSettings.enabled(Feature.DEATH_LOCATION)) return;
 		if (itemIds.isEmpty()) {
 			return;
 		}
@@ -233,6 +242,7 @@ public final class DeathLocationModule {
 	 * survivor, so the countdown follows that entity instead of treating the items as gone. The
 	 * survivor inherits the younger age of the two, so the time estimate stays accurate. */
 	public static void onItemMerged(UUID discardedId, UUID survivorId) {
+		if (!ModSettings.enabled(Feature.DEATH_LOCATION)) return;
 		for (Map.Entry<UUID, List<Countdown>> entry : COUNTDOWNS.entrySet()) {
 			for (Countdown countdown : entry.getValue()) {
 				if (countdown.itemIds.remove(discardedId)) {

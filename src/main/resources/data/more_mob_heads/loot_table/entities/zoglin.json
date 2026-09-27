@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.zoglin.ambient",
 								"minecraft:profile": {
+									"id": [775197609, 1455413080, -1898862358, -2054727322],
 									"properties": [
 										{
 											"name": "textures",

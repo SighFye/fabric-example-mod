@@ -31,6 +31,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.bee.loop",
 										"minecraft:profile": {
+											"id": [1504450290, -1766563376, 1587574877, 1198535653],
 											"properties": [
 												{
 													"name": "textures",
@@ -61,6 +62,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.bee.pollinate",
 										"minecraft:profile": {
+											"id": [-1222127445, 66440450, 797378003, -135187510],
 											"properties": [
 												{
 													"name": "textures",
@@ -91,6 +93,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.bee.loop_aggressive",
 										"minecraft:profile": {
+											"id": [-469753281, 530925377, -735979544, 73664981],
 											"properties": [
 												{
 													"name": "textures",
@@ -121,6 +124,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.bee.loop_aggressive",
 										"minecraft:profile": {
+											"id": [-424194555, 729032839, -1715835489, 902156322],
 											"properties": [
 												{
 													"name": "textures",

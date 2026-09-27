@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.creaking.ambient",
 								"minecraft:profile": {
+									"id": [-66618217, 1595136986, -307892014, 24032175],
 									"properties": [
 										{
 											"name": "textures",

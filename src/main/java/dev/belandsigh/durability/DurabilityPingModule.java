@@ -1,5 +1,7 @@
 package dev.belandsigh.durability;
 
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -49,6 +51,9 @@ public final class DurabilityPingModule {
 
 	/** Called as a player's item takes durability damage; only the stack actually being damaged is inspected. */
 	public static void onDamage(ServerPlayer player, ItemStack stack, int oldDamage, int newDamage) {
+		if (!ModSettings.enabled(Feature.DURABILITY_PING)) {
+			return;
+		}
 		int maxDamage = stack.getMaxDamage();
 		if (!DurabilityThresholds.crossed(maxDamage - oldDamage, maxDamage - newDamage)) {
 			return;

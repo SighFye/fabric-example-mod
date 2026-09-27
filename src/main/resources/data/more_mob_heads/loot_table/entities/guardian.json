@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.elder_guardian.flop",
 								"minecraft:profile": {
+									"id": [-491113407, 1718633803, 438323567, -2135344763],
 									"properties": [
 										{
 											"name": "textures",

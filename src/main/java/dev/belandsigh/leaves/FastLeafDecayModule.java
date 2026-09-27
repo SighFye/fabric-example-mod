@@ -1,5 +1,7 @@
 package dev.belandsigh.leaves;
 
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import java.util.HashMap;
 import java.util.Map;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLevelEvents;
@@ -36,11 +38,16 @@ public final class FastLeafDecayModule {
 	}
 
 	public static void enqueue(ServerLevel level, BlockPos pos) {
+		if (!ModSettings.enabled(Feature.FAST_LEAF_DECAY)) return;
 		long dueTick = level.getGameTime() + 1 + level.getRandom().nextInt(MAX_DELAY_TICKS);
 		QUEUES.computeIfAbsent(level, ignored -> new LeafDecayQueue()).add(pos.asLong(), dueTick);
 	}
 
 	private static void processQueue(ServerLevel level) {
+		if (!ModSettings.enabled(Feature.FAST_LEAF_DECAY)) {
+			QUEUES.remove(level);
+			return;
+		}
 		LeafDecayQueue queue = QUEUES.get(level);
 		if (queue == null) return;
 

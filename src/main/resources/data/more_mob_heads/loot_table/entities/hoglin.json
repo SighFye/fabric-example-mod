@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.hoglin.angry",
 								"minecraft:profile": {
+									"id": [-1135968425, -66866886, -1560684484, -582475079],
 									"properties": [
 										{
 											"name": "textures",

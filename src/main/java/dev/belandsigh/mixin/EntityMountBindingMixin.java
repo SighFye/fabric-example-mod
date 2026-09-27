@@ -1,5 +1,7 @@
 package dev.belandsigh.mixin;
 
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import dev.belandsigh.mounts.MountBindingData;
 import dev.belandsigh.mounts.MountBindingService;
 import dev.belandsigh.mounts.MountLocationIndex;
@@ -44,13 +46,16 @@ public abstract class EntityMountBindingMixin implements MountBindingData {
 	/** Name tags rename mounts; keep the management screen's catalog current. */
 	@Inject(method = "setCustomName", at = @At("TAIL"))
 	private void belandsigh$refreshMountCatalogName(Component name, CallbackInfo ci) {
-		MountLocationIndex.refresh((Entity) (Object) this);
+		if (ModSettings.enabled(Feature.MOUNT_WHISTLE)) {
+			MountLocationIndex.refresh((Entity) (Object) this);
+		}
 	}
 
 	@Inject(method = "startRiding(Lnet/minecraft/world/entity/Entity;ZZ)Z", at = @At("RETURN"))
 	private void belandsigh$bindMountAfterRideStarts(Entity vehicle, boolean force, boolean emitEvent,
 			CallbackInfoReturnable<Boolean> cir) {
-		if (cir.getReturnValueZ() && (Object) this instanceof ServerPlayer player) {
+		if (ModSettings.enabled(Feature.MOUNT_WHISTLE)
+				&& cir.getReturnValueZ() && (Object) this instanceof ServerPlayer player) {
 			MountBindingService.bindOnSuccessfulRide(player, vehicle);
 		}
 	}

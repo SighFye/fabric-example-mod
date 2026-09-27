@@ -1,5 +1,7 @@
 package dev.belandsigh.cauldrons;
 
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +42,9 @@ public final class CauldronConversionModule {
 
 	public static void initialize() {
 		UseBlockCallback.EVENT.register((player, level, hand, hitResult) -> {
+			if (!ModSettings.enabled(Feature.CAULDRON_CONVERSIONS)) {
+				return InteractionResult.PASS;
+			}
 			BlockState cauldron = level.getBlockState(hitResult.getBlockPos());
 			if (player.isShiftKeyDown() || player.isSpectator() || !cauldron.is(Blocks.WATER_CAULDRON)) {
 				return InteractionResult.PASS;

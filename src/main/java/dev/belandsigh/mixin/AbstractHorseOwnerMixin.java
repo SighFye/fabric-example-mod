@@ -1,5 +1,7 @@
 package dev.belandsigh.mixin;
 
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import dev.belandsigh.mounts.MountLocationIndex;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
@@ -13,6 +15,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class AbstractHorseOwnerMixin {
 	@Inject(method = "setOwner", at = @At("TAIL"))
 	private void belandsigh$refreshMountCatalog(LivingEntity owner, CallbackInfo ci) {
-		MountLocationIndex.refresh((AbstractHorse) (Object) this);
+		if (ModSettings.enabled(Feature.MOUNT_WHISTLE)) {
+			MountLocationIndex.refresh((AbstractHorse) (Object) this);
+		}
 	}
 }

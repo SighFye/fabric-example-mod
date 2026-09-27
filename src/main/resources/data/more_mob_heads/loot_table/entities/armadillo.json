@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.armadillo.ambient",
 								"minecraft:profile": {
+									"id": [1711779450, 1880581939, 1812377796, -5759489],
 									"properties": [
 										{
 											"name": "textures",

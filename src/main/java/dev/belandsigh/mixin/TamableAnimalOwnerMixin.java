@@ -1,5 +1,7 @@
 package dev.belandsigh.mixin;
 
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import dev.belandsigh.mounts.MountLocationIndex;
 import dev.belandsigh.pets.PetFollowModule;
 import net.minecraft.world.entity.EntityReference;
@@ -16,12 +18,16 @@ public abstract class TamableAnimalOwnerMixin {
 	@Inject(method = "setOwner", at = @At("TAIL"))
 	private void belandsigh$reindexOnSetOwner(LivingEntity owner, CallbackInfo ci) {
 		PetFollowModule.onOwnerChanged((TamableAnimal) (Object) this);
-		MountLocationIndex.refresh((TamableAnimal) (Object) this);
+		if (ModSettings.enabled(Feature.MOUNT_WHISTLE)) {
+			MountLocationIndex.refresh((TamableAnimal) (Object) this);
+		}
 	}
 
 	@Inject(method = "setOwnerReference", at = @At("TAIL"))
 	private void belandsigh$reindexOnSetOwnerReference(EntityReference<LivingEntity> owner, CallbackInfo ci) {
 		PetFollowModule.onOwnerChanged((TamableAnimal) (Object) this);
-		MountLocationIndex.refresh((TamableAnimal) (Object) this);
+		if (ModSettings.enabled(Feature.MOUNT_WHISTLE)) {
+			MountLocationIndex.refresh((TamableAnimal) (Object) this);
+		}
 	}
 }

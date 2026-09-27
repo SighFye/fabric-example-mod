@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.evoker.prepare_attack",
 								"minecraft:profile": {
+									"id": [957332872, -161885290, 1013500860, -1211690467],
 									"properties": [
 										{
 											"name": "textures",

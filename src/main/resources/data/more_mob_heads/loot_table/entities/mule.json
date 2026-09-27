@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.mule.ambient",
 								"minecraft:profile": {
+									"id": [1103242401, 52159540, -765795960, 1542782784],
 									"properties": [
 										{
 											"name": "textures",

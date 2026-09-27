@@ -1,5 +1,7 @@
 package dev.belandsigh.armorstands;
 
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
@@ -18,6 +20,9 @@ public final class ArmorStandModule {
 
 	public static void initialize() {
 		UseEntityCallback.EVENT.register((player, level, hand, entity, hitResult) -> {
+			if (!ModSettings.enabled(Feature.ARMOR_STANDS)) {
+				return InteractionResult.PASS;
+			}
 			if (!level.isClientSide() && entity instanceof ArmorStand armorStand
 					&& ArmorStandActions.rejectLockedInteraction(player, armorStand)) {
 				return InteractionResult.FAIL;
@@ -44,6 +49,9 @@ public final class ArmorStandModule {
 		});
 
 		AttackEntityCallback.EVENT.register((player, level, hand, entity, hitResult) -> {
+			if (!ModSettings.enabled(Feature.ARMOR_STANDS)) {
+				return InteractionResult.PASS;
+			}
 			if (!level.isClientSide() && entity instanceof ArmorStand armorStand
 					&& ArmorStandActions.rejectLockedInteraction(player, armorStand)) {
 				return InteractionResult.FAIL;

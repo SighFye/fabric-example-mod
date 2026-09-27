@@ -21,6 +21,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.cow.ambient",
 										"minecraft:profile": {
+											"id": [-18601843, -2026684457, -1579745548, -1654765948],
 											"properties": [
 												{
 													"name": "textures",
@@ -63,6 +64,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.cow.ambient",
 										"minecraft:profile": {
+											"id": [-781684471, -1682615440, 256273787, -1889531487],
 											"properties": [
 												{
 													"name": "textures",

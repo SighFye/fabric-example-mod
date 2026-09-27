@@ -19,6 +19,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.wither.ambient",
 								"minecraft:profile": {
+									"id": [-308213720, -163873075, -271095885, 610254250],
 									"properties": [
 										{
 											"name": "textures",
@@ -55,6 +56,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.wither.shoot",
 								"minecraft:profile": {
+									"id": [-1283696620, -1456501056, -156329677, -1410771922],
 									"properties": [
 										{
 											"name": "textures",
@@ -77,6 +79,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.wither.shoot",
 								"minecraft:profile": {
+									"id": [-748147962, 540777956, -1031454457, 438750659],
 									"properties": [
 										{
 											"name": "textures",

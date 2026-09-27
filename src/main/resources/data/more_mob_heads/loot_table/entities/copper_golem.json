@@ -14,6 +14,7 @@
                             "components": {
                                 "minecraft:note_block_sound": "minecraft:entity.copper_golem.spin",
                                 "minecraft:profile": {
+                                    "id": [-280968770, -1054726562, -1751235720, -594703597],
                                     "properties": [
                                         {
                                             "name": "textures",
@@ -29,6 +30,7 @@
                             "components": {
                                 "minecraft:note_block_sound": "minecraft:entity.copper_golem_weathered.spin",
                                 "minecraft:profile": {
+                                    "id": [-1430092724, 805928086, 1177372845, -1604005990],
                                     "properties": [
                                         {
                                             "name": "textures",
@@ -53,6 +55,7 @@
                             "components": {
                                 "minecraft:note_block_sound": "minecraft:entity.copper_golem_weathered.spin",
                                 "minecraft:profile": {
+                                    "id": [-719874620, 972415684, -1332899801, 556266140],
                                     "properties": [
                                         {
                                             "name": "textures",
@@ -77,6 +80,7 @@
                             "components": {
                                 "minecraft:note_block_sound": "minecraft:entity.copper_golem_oxidized.spin",
                                 "minecraft:profile": {
+                                    "id": [-157001340, 549712388, -1721573815, 909212214],
                                     "properties": [
                                         {
                                             "name": "textures",

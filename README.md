@@ -3,6 +3,19 @@
 A Fabric mod for Minecraft 26.3 that replaces the selected Vanilla Tweaks
 datapacks with native Java implementations.
 
+## Settings
+
+Press **B** to open BelAndSigh Settings. The binding can be changed under
+Minecraft's Controls settings. If Mod Menu is installed, its Configure button
+for BelAndSigh opens the same screen. Each feature has its own tab and an
+enable/disable switch. Operators can change server settings; other players can
+view them. The screen also provides **Disable all** and **Restore defaults**.
+
+Settings persist in `config/belandsigh.json`. More Mob Heads is disabled by
+default; the other features are enabled by default. Run `/reload` or restart
+the server after changing More Mob Heads or Mini Blocks because Minecraft loads
+loot tables and recipes during a data-pack reload.
+
 ## Armor Stands module
 
 Sneak-right-click an armor stand to open its editor. Players with the mod

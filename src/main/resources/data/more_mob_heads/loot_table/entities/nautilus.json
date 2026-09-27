@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.nautilus.ambient",
 								"minecraft:profile": {
+									"id": [654888857, 3772512, -920122261, 998820837],
 									"properties": [
 										{
 											"name": "textures",

@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.turtle.ambient_land",
 								"minecraft:profile": {
+									"id": [810103072, 181690550, 1352765672, -737007677],
 									"properties": [
 										{
 											"name": "textures",

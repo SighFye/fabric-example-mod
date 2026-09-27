@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.warden.ambient",
 								"minecraft:profile": {
+									"id": [-1292662885, 1936795464, 1588813278, -414658452],
 									"properties": [
 										{
 											"name": "textures",

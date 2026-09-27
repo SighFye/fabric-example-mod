@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.magma_cube.squish",
 								"minecraft:profile": {
+									"id": [-1206445868, -1740093532, -1388396415, -1528037423],
 									"properties": [
 										{
 											"name": "textures",

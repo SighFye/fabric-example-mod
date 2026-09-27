@@ -21,6 +21,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.fox.ambient",
 										"minecraft:profile": {
+											"id": [-673184719, 297555721, 139863441, 1431772281],
 											"properties": [
 												{
 													"name": "textures",
@@ -63,6 +64,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.fox.ambient",
 										"minecraft:profile": {
+											"id": [1094935415, -347321522, 972754462, -662069322],
 											"properties": [
 												{
 													"name": "textures",

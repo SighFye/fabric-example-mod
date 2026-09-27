@@ -1,6 +1,8 @@
 package dev.belandsigh.mixin;
 
 import dev.belandsigh.client.MountManagementScreen;
+import dev.belandsigh.client.SettingsClientState;
+import dev.belandsigh.config.Feature;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
@@ -44,6 +46,7 @@ public abstract class InventoryScreenMixin extends Screen {
 	private void belandsigh$followRecipeBookButton(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
 		if (belandsigh$mountManagementButton != null) {
 			belandsigh$mountManagementButton.setPosition(belandsigh$buttonX(), belandsigh$buttonY());
+			belandsigh$mountManagementButton.visible = SettingsClientState.enabled(Feature.MOUNT_WHISTLE);
 		}
 	}
 

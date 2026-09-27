@@ -21,6 +21,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.goat.ambient",
 										"minecraft:profile": {
+											"id": [-2025374203, 1576462333, -1738125665, -614242465],
 											"properties": [
 												{
 													"name": "textures",
@@ -61,6 +62,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.goat.screaming.prepare_ram",
 										"minecraft:profile": {
+											"id": [-1113291348, 592520224, -1994761503, -388065121],
 											"properties": [
 												{
 													"name": "textures",

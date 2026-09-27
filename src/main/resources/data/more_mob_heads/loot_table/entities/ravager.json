@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.ravager.roar",
 								"minecraft:profile": {
+									"id": [-347229544, 1631642193, -483495699, 147366017],
 									"properties": [
 										{
 											"name": "textures",

@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.puffer_fish.blow_up",
 								"minecraft:profile": {
+									"id": [-495764131, -1516469526, -217009278, -1342960683],
 									"properties": [
 										{
 											"name": "textures",

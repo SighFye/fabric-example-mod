@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.camel.ambient",
 								"minecraft:profile": {
+									"id": [-427997801, 872507105, -1752537462, 113203030],
 									"properties": [
 										{
 											"name": "textures",

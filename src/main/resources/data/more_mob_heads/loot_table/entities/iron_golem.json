@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.iron_golem.hurt",
 								"minecraft:profile": {
+									"id": [-25426151, -88206995, -832548455, -1129462118],
 									"properties": [
 										{
 											"name": "textures",

@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.illusioner.cast_spell",
 								"minecraft:profile": {
+									"id": [-746426340, 1742128460, -1871357815, 499217954],
 									"properties": [
 										{
 											"name": "textures",

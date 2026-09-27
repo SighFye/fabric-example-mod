@@ -1,5 +1,7 @@
 package dev.belandsigh.mixin;
 
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.animal.camel.Camel;
 import net.minecraft.world.entity.player.Player;
@@ -26,11 +28,14 @@ public abstract class CamelTamingMixin {
 
 	@Inject(method = "isTamed", at = @At("HEAD"), cancellable = true)
 	private void belandsigh$useRealTameFlag(CallbackInfoReturnable<Boolean> cir) {
-		cir.setReturnValue(((AbstractHorseAccessor) this).belandsigh$getFlag(FLAG_TAME));
+		if (ModSettings.enabled(Feature.MOUNT_WHISTLE)) {
+			cir.setReturnValue(((AbstractHorseAccessor) this).belandsigh$getFlag(FLAG_TAME));
+		}
 	}
 
 	@Inject(method = "customServerAiStep", at = @At("TAIL"))
 	private void belandsigh$rollTaming(ServerLevel level, CallbackInfo ci) {
+		if (!ModSettings.enabled(Feature.MOUNT_WHISTLE)) return;
 		Camel self = (Camel) (Object) this;
 		if (self.isTamed() || !self.isVehicle() || self.isMobControlled()) {
 			return;

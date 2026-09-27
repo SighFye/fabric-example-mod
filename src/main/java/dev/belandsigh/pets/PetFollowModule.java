@@ -1,6 +1,8 @@
 package dev.belandsigh.pets;
 
 import dev.belandsigh.BelAndSighMod;
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -42,7 +44,7 @@ public final class PetFollowModule {
 
 	public static void initialize() {
 		ServerEntityEvents.ENTITY_LOAD.register((entity, level) -> {
-			if (entity instanceof TamableAnimal pet && isFollowingPetType(pet)) {
+			if (ModSettings.enabled(Feature.PET_FOLLOWING) && entity instanceof TamableAnimal pet && isFollowingPetType(pet)) {
 				PetOwnerIndex.add(pet);
 				updateTicket(pet);
 			}
@@ -54,7 +56,9 @@ public final class PetFollowModule {
 			}
 		});
 		ServerTickEvents.END_SERVER_TICK.register(server -> {
-			if (server.getTickCount() % CHECK_INTERVAL_TICKS == 0) {
+			if (!ModSettings.enabled(Feature.PET_FOLLOWING)) {
+				disable();
+			} else if (server.getTickCount() % CHECK_INTERVAL_TICKS == 0) {
 				tick(server);
 			}
 		});
@@ -67,6 +71,7 @@ public final class PetFollowModule {
 
 	/** Called from the owner-setter mixin when a loaded pet is tamed or changes owner. */
 	public static void onOwnerChanged(TamableAnimal pet) {
+		if (!ModSettings.enabled(Feature.PET_FOLLOWING)) return;
 		PetOwnerIndex.reindex(pet);
 	}
 
@@ -86,6 +91,13 @@ public final class PetFollowModule {
 				}
 			}
 		}
+	}
+
+	private static void disable() {
+		for (TamableAnimal pet : java.util.List.copyOf(TICKETED_PETS.keySet())) {
+			releaseTicket(pet);
+		}
+		PetOwnerIndex.clear();
 	}
 
 	private static void follow(TamableAnimal pet, ServerPlayer player, int simulationDistance) {

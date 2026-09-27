@@ -1,6 +1,8 @@
 package dev.belandsigh.mounts;
 
 import dev.belandsigh.BelAndSighMod;
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.core.Registry;
@@ -41,7 +43,9 @@ public final class MountRecallService {
 			new TicketType(SOURCE_CHUNK_TIMEOUT_TICKS,
 				TicketType.FLAG_LOADING | TicketType.FLAG_SIMULATION | TicketType.FLAG_KEEP_DIMENSION_ACTIVE)
 		);
-		ServerTickEvents.END_SERVER_TICK.register(MountRecallService::tickPendingRecalls);
+		ServerTickEvents.END_SERVER_TICK.register(server -> {
+			if (ModSettings.enabled(Feature.MOUNT_WHISTLE)) tickPendingRecalls(server);
+		});
 		ServerLifecycleEvents.SERVER_STOPPED.register(server -> PENDING_RECALLS.clear());
 	}
 

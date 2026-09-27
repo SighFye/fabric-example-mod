@@ -59,6 +59,15 @@ class MiniBlockRecipesTest {
 	}
 
 	@Test
+	void everyRecipeHonorsTheMiniBlocksSetting() {
+		for (Recipe recipe : recipes) {
+			String condition = recipe.json().getAsJsonArray("fabric:load_conditions")
+				.get(0).getAsJsonObject().get("condition").getAsString();
+			assertEquals("belandsigh:mini_blocks_enabled", condition, recipe.file());
+		}
+	}
+
+	@Test
 	void everyIngredientIsARealItem() {
 		List<String> missing = recipes.stream()
 			.filter(recipe -> !BuiltInRegistries.ITEM.containsKey(Identifier.parse(recipe.ingredient())))

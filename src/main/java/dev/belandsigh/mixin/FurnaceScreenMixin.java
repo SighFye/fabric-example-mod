@@ -1,6 +1,8 @@
 package dev.belandsigh.mixin;
 
 import dev.belandsigh.client.FurnaceXpClientState;
+import dev.belandsigh.client.SettingsClientState;
+import dev.belandsigh.config.Feature;
 import dev.belandsigh.furnacexp.FurnaceXpMath;
 import dev.belandsigh.furnacexp.FurnaceXpModule;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -61,7 +63,7 @@ public abstract class FurnaceScreenMixin extends Screen {
 
 		// Stays hidden until the server reports a value, so an unmodded server shows nothing.
 		int tenths = FurnaceXpClientState.tenthsFor(belandsigh$containerId());
-		belandsigh$collectXpButton.visible = tenths >= 0;
+		belandsigh$collectXpButton.visible = SettingsClientState.enabled(Feature.FURNACE_XP) && tenths >= 0;
 		LocalPlayer player = minecraft.player;
 		// Spectators see the stored amount, but vanilla ignores their clicks, so the button is read-only.
 		belandsigh$collectXpButton.active = tenths > 0 && player != null && !player.isSpectator();

@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.bogged.ambient",
 								"minecraft:profile": {
+									"id": [1333819928, 1886910518, -1187503949, 764248897],
 									"properties": [
 										{
 											"name": "textures",

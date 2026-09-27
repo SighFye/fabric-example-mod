@@ -13,6 +13,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.shulker.ambient",
 								"minecraft:profile": {
+									"id": [-73504010, -1206258727, 241684014, 1884945391],
 									"properties": [
 										{
 											"name": "textures",

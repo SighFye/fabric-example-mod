@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.bat.ambient",
 								"minecraft:profile": {
+									"id": [1052084444, -793028658, 1843050723, -1346962109],
 									"properties": [
 										{
 											"name": "textures",

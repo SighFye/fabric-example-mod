@@ -21,6 +21,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.frog.ambient",
 										"minecraft:profile": {
+											"id": [1988589715, -383713443, -95723587, 349880034],
 											"properties": [
 												{
 													"name": "textures",
@@ -63,6 +64,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.frog.ambient",
 										"minecraft:profile": {
+											"id": [-1525870477, -736159436, 98130717, -1809866783],
 											"properties": [
 												{
 													"name": "textures",
@@ -105,6 +107,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.frog.ambient",
 										"minecraft:profile": {
+											"id": [-709830077, -1755610173, 841451741, -1558753181],
 											"properties": [
 												{
 													"name": "textures",

@@ -31,6 +31,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.llama.ambient",
 										"minecraft:profile": {
+											"id": [-392548687, 1996881521, 1420493854, 1551278221],
 											"properties": [
 												{
 													"name": "textures",
@@ -61,6 +62,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.llama.ambient",
 										"minecraft:profile": {
+											"id": [1887937878, -721442466, -852998925, 1356612578],
 											"properties": [
 												{
 													"name": "textures",
@@ -91,6 +93,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.llama.ambient",
 										"minecraft:profile": {
+											"id": [-2077984757, 1012683601, -817235109, -199242968],
 											"properties": [
 												{
 													"name": "textures",
@@ -121,6 +124,7 @@
 									"components": {
 										"minecraft:note_block_sound": "minecraft:entity.llama.ambient",
 										"minecraft:profile": {
+											"id": [-1102214645, -1050729575, 569366718, 880851575],
 											"properties": [
 												{
 													"name": "textures",

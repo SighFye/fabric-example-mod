@@ -4,6 +4,9 @@ import dev.belandsigh.armorstands.ArmorStandModule;
 import dev.belandsigh.armorstands.ArmorStandNetwork;
 import dev.belandsigh.cauldrons.CauldronConversionModule;
 import dev.belandsigh.customportals.CustomNetherPortalModule;
+import dev.belandsigh.config.ModSettings;
+import dev.belandsigh.config.MiniBlocksResourceCondition;
+import dev.belandsigh.config.SettingsNetwork;
 import dev.belandsigh.death.DeathLocationModule;
 import dev.belandsigh.durability.DurabilityPingModule;
 import dev.belandsigh.enderchest.EnderChestDropsModule;
@@ -24,6 +27,9 @@ public final class BelAndSighMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ModSettings.load();
+		MiniBlocksResourceCondition.initialize();
+		SettingsNetwork.initialize();
 		ArmorStandNetwork.initialize();
 		ArmorStandModule.initialize();
 		CauldronConversionModule.initialize();
@@ -38,6 +44,6 @@ public final class BelAndSighMod implements ModInitializer {
 		PetFollowModule.initialize();
 		PlayerHeadsModule.initialize();
 		UnlockAllRecipesModule.initialize();
-		LOGGER.info("BelAndSigh initialized (Armor Stands, Cauldron Conversions, Custom Nether Portals, Death Item Location, Durability Ping, Ender Chest Always Drops, Fast Leaf Decay, Furnace XP, Mini Blocks, More Mob Heads, Mount Whistle, Pet Following, Player Heads, and Unlock All Recipes modules enabled)");
+		LOGGER.info("BelAndSigh initialized; feature states loaded from config/belandsigh.json");
 	}
 }

@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.drowned.ambient",
 								"minecraft:profile": {
+									"id": [-1007170314, 498876319, -374983876, -569635308],
 									"properties": [
 										{
 											"name": "textures",

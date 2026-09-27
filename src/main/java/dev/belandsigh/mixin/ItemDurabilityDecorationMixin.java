@@ -1,5 +1,7 @@
 package dev.belandsigh.mixin;
 
+import dev.belandsigh.client.SettingsClientState;
+import dev.belandsigh.config.Feature;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.util.ARGB;
@@ -32,7 +34,7 @@ public abstract class ItemDurabilityDecorationMixin {
 	}
 
 	private static boolean belandsigh$showsDurabilityCount(ItemStack stack) {
-		if (!stack.isDamageableItem()) {
+		if (!SettingsClientState.enabled(Feature.DURABILITY_DISPLAY) || !stack.isDamageableItem()) {
 			return false;
 		}
 		int remaining = stack.getMaxDamage() - stack.getDamageValue();

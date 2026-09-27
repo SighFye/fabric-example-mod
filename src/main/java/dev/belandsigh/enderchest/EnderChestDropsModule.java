@@ -1,5 +1,7 @@
 package dev.belandsigh.enderchest;
 
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import java.util.Optional;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableSource;
@@ -18,6 +20,9 @@ public final class EnderChestDropsModule {
 
 	public static void initialize() {
 		LootTableEvents.REPLACE.register((key, original, source, registries) -> {
+			if (!ModSettings.enabled(Feature.ENDER_CHEST_DROPS)) {
+				return null;
+			}
 			// Only swap out vanilla's own table: a data pack or mod that supplies its own ender chest table wins,
 			// and other mods' LootTableEvents.MODIFY listeners still run on top of ours.
 			if (source != LootTableSource.VANILLA || !Blocks.ENDER_CHEST.getLootTable().equals(Optional.of(key))) {

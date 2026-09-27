@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.zombie_nautilus.ambient",
 								"minecraft:profile": {
+									"id": [-345172292, -1132100832, -454112383, -1967183441],
 									"properties": [
 										{
 											"name": "textures",
@@ -40,6 +41,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.zombie_nautilus.ambient",
 								"minecraft:profile": {
+									"id": [1428865708, -974534109, 1920943239, -1841123068],
 									"properties": [
 										{
 											"name": "textures",

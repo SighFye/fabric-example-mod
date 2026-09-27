@@ -1,6 +1,8 @@
 package dev.belandsigh.mounts;
 
 import dev.belandsigh.BelAndSighMod;
+import dev.belandsigh.config.Feature;
+import dev.belandsigh.config.ModSettings;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
@@ -42,12 +44,20 @@ public final class MountWhistleModule {
 		MountNetworking.initialize();
 		MountRecallService.initialize();
 		ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) ->
-			PlayerMountSelectionService.copySelections(oldPlayer, newPlayer));
-		ServerPlayerEvents.JOIN.register(MountNetworking::syncSelections);
-		ServerEntityEvents.ENTITY_LOAD.register(MountLocationIndex::record);
+			{
+				if (ModSettings.enabled(Feature.MOUNT_WHISTLE)) {
+					PlayerMountSelectionService.copySelections(oldPlayer, newPlayer);
+				}
+			});
+		ServerPlayerEvents.JOIN.register(player -> {
+			if (ModSettings.enabled(Feature.MOUNT_WHISTLE)) MountNetworking.syncSelections(player);
+		});
+		ServerEntityEvents.ENTITY_LOAD.register((entity, level) -> {
+			if (ModSettings.enabled(Feature.MOUNT_WHISTLE)) MountLocationIndex.record(entity, level);
+		});
 		ServerEntityEvents.ENTITY_UNLOAD.register(MountLocationIndex::record);
 		ServerLivingEntityEvents.AFTER_DEATH.register((entity, damageSource) -> {
-			if (!(entity.level() instanceof ServerLevel level)) {
+			if (!ModSettings.enabled(Feature.MOUNT_WHISTLE) || !(entity.level() instanceof ServerLevel level)) {
 				return;
 			}
 			MountLocationIndex.remove(entity, level);

@@ -40,6 +40,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.ambient",
 														"minecraft:profile": {
+															"id": [1916292188, -242661192, 982078605, -1168467643],
 															"properties": [
 																{
 																	"name": "textures",
@@ -74,6 +75,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.growl",
 														"minecraft:profile": {
+															"id": [2092707942, -753122416, 889425878, -2023924290],
 															"properties": [
 																{
 																	"name": "textures",
@@ -124,6 +126,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.ambient",
 														"minecraft:profile": {
+															"id": [-978949566, -1302363606, 2115412504, 1965609378],
 															"properties": [
 																{
 																	"name": "textures",
@@ -158,6 +161,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.growl",
 														"minecraft:profile": {
+															"id": [-1511176226, -764376301, -651250417, -1232172002],
 															"properties": [
 																{
 																	"name": "textures",
@@ -208,6 +212,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.ambient",
 														"minecraft:profile": {
+															"id": [-879030968, 1143080191, 1876139936, 1947627800],
 															"properties": [
 																{
 																	"name": "textures",
@@ -242,6 +247,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.growl",
 														"minecraft:profile": {
+															"id": [676014322, 850479705, -1228179625, 842626282],
 															"properties": [
 																{
 																	"name": "textures",
@@ -292,6 +298,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.ambient",
 														"minecraft:profile": {
+															"id": [518208557, -1065519436, -264346046, 2047396770],
 															"properties": [
 																{
 																	"name": "textures",
@@ -326,6 +333,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.growl",
 														"minecraft:profile": {
+															"id": [1753719847, -2020602265, 385500719, -1160192331],
 															"properties": [
 																{
 																	"name": "textures",
@@ -376,6 +384,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.ambient",
 														"minecraft:profile": {
+															"id": [591748960, 1218871448, -853056690, 826722332],
 															"properties": [
 																{
 																	"name": "textures",
@@ -410,6 +419,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.growl",
 														"minecraft:profile": {
+															"id": [-772685010, 1381561304, -120487429, 819945952],
 															"properties": [
 																{
 																	"name": "textures",
@@ -460,6 +470,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.ambient",
 														"minecraft:profile": {
+															"id": [1321917109, 178836511, -1447859806, -129001659],
 															"properties": [
 																{
 																	"name": "textures",
@@ -494,6 +505,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.growl",
 														"minecraft:profile": {
+															"id": [1387774598, -1037008277, 703069495, -229164144],
 															"properties": [
 																{
 																	"name": "textures",
@@ -544,6 +556,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.ambient",
 														"minecraft:profile": {
+															"id": [1463523940, 833562300, -1290262805, 1876554931],
 															"properties": [
 																{
 																	"name": "textures",
@@ -578,6 +591,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.growl",
 														"minecraft:profile": {
+															"id": [394704697, 881502288, 782337503, -1320421973],
 															"properties": [
 																{
 																	"name": "textures",
@@ -628,6 +642,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.ambient",
 														"minecraft:profile": {
+															"id": [2143629235, -839095573, 15105051, 2052708563],
 															"properties": [
 																{
 																	"name": "textures",
@@ -662,6 +677,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.growl",
 														"minecraft:profile": {
+															"id": [-1923038636, -2001705177, 1721395477, -774186327],
 															"properties": [
 																{
 																	"name": "textures",
@@ -712,6 +728,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.ambient",
 														"minecraft:profile": {
+															"id": [-1928156393, 1685809609, 1108830551, 717649118],
 															"properties": [
 																{
 																	"name": "textures",
@@ -746,6 +763,7 @@
 													"components": {
 														"minecraft:note_block_sound": "minecraft:entity.wolf.growl",
 														"minecraft:profile": {
+															"id": [1392870363, -1461034685, 98238731, -1411621964],
 															"properties": [
 																{
 																	"name": "textures",
@@ -798,6 +816,7 @@
 											"components": {
 												"minecraft:note_block_sound": "minecraft:entity.wolf.ambient",
 												"minecraft:profile": {
+													"id": [518208557, -1065519436, -264346046, 2047396770],
 													"properties": [
 														{
 															"name": "textures",
@@ -829,6 +848,7 @@
 											"components": {
 												"minecraft:note_block_sound": "minecraft:entity.wolf.growl",
 												"minecraft:profile": {
+													"id": [1753719847, -2020602265, 385500719, -1160192331],
 													"properties": [
 														{
 															"name": "textures",

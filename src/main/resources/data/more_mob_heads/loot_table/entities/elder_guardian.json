@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.elder_guardian.ambient",
 								"minecraft:profile": {
+									"id": [1244488948, -1609655163, -160275731, -892631982],
 									"properties": [
 										{
 											"name": "textures",

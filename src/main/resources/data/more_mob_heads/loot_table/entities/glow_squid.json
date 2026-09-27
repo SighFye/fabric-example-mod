@@ -14,6 +14,7 @@
 							"components": {
 								"minecraft:note_block_sound": "minecraft:entity.glow_squid.ambient",
 								"minecraft:profile": {
+									"id": [1261345637, -2114005878, -1713360336, -1850909636],
 									"properties": [
 										{
 											"name": "textures",
